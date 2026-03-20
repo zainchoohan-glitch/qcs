@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <!-- SEO Meta Tags -->
+  <title>QR Code Scanner - Free QR Reader to Scan from Image, PDF & Webcam Universal Online QR Scanner & Qr Code Generator</title>
+  <meta name="description" content="Scan QR codes instantly with your camera or upload images. Generate QR codes for URLs, WiFi, contacts, and more. All processing happens in your browser ">
+  <link rel="canonical" href="https://qrcodescannar.com/">
+  <meta name="keywords" content="QR code scanner, QR code generator, scan QR code, create QR code, WiFi QR code, free QR scanner, online QR tool">
+  <meta name="author" content="ScanQR Code">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="QR Code Scanner - Free QR Reader to Scan from Image, PDF & Webcam Universal Online QR Scanner & Qr Code Generator">
+  <meta property="og:description" content="Scan QR codes instantly with your camera or upload images. Generate QR codes for URLs, WiFi, contacts, and more. All processing happens in your browser ">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qrcodescannar.com">
+  <meta property="og:image" content="https://qrcodescanner.com/public/qr-code-scan.avif">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="QR Code Scanner - Free QR Reader to Scan from Image, PDF & Webcam Universal Online QR Scanner & Qr Code Generator">
+  <meta name="twitter:description" content="Scan QR codes instantly with your camera or upload images. Generate QR codes for URLs, WiFi, contacts, and more. All processing happens in your browser ">
+  <meta name="twitter:image" content="https://qrcodescanner.com/public/qr-code-scan.avif">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23c2f711' width='100' height='100' rx='20'/%3E%3Cpath fill='%23000' d='M20 20h15v15H20zm0 45h15v15H20zm45-45h15v15H65zM20 40h5v5h-5zm10 0h5v5h-5zm10 0h5v5h-5zm10 0h5v5h-5zm10 0h5v5h-5zm-30 10h5v5h-5zm20 0h5v5h-5zm10 0h5v5h-5zm-20 10h5v5h-5zm10 0h5v5h-5zm10 0h5v5h-5zm10 0h5v5h-5z'/%3E%3C/svg%3E">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "QR Code Scanner",
+    "description": "Scan QR codes instantly with your camera or upload images. Generate QR codes for URLs, WiFi, contacts, and more. All processing happens in your browser ",
+    "url": "https://qrcodescannar.com",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "QR Code Camera Scanner",
+      "Image QR Code Scanner",
+      "QR Code Generator",
+      "WiFi QR Code Generator",
+      "Scan History",
+      "100% Client-Side Processing"
+    ]
+  }
+  </script>
+</head>
+<body class="dark-mode">
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="/" class="logo">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 11h8V3H3v8zm2-6h4v4H5V5zm8-2v8h8V3h-8zm6 6h-4V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm13-2h-2v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/>
+          </svg>
+          Qr Code Scanner
+        </a>
+        
+        <ul class="nav-menu">
+          <li><a href="/qr-code-generator">QR Generator</a></li>
+          <li><a href="/image-qr-code-scanner">Image Scanner</a></li>
+          <li><a href="/wifi-qr-code-scanner">WiFi QR</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li>
+            <button class="theme-toggle" id="theme-toggle">
+              <span class="theme-icon">🌙</span>
+            </button>
+          </li>
+        </ul>
+        
+        <div class="menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="particles"></div>
+    <div class="container">
+      <div class="hero-content">
+        <h1>QR Code Scanner & Generator Online</h1>
+        <p>Scan QR codes instantly with your camera or upload images. Generate QR codes for URLs, WiFi, contacts, and more. All processing happens in your browser - You can use it on Mobile and Desktop</p>
+        <div class="hero-buttons">
+          <a href="/image-qr-code-scanner" class="btn btn-primary">Start Scanning</a>
+          <a href="/qr-code-generator" class="btn btn-secondary">Generate QR Code</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tools Section -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center">
+        <h2>Scan Qr Code Online</h2>
+        <p>Everything you need to work with QR codes - completely free</p>
+      </div>
+      
+      <div class="tools-grid">
+        <!-- Camera Scanner -->
+        <div class="tool-card">
+          <div class="tool-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 12.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-3.5c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9z"/>
+            </svg>
+          </div>
+          <h3>Camera QR Scanner</h3>
+          <p>Scan QR codes in real-time using your device's camera. Fast and accurate detection.</p>
+          <a href="/image-qr-code-scanner#camera" class="btn btn-primary">Open Camera</a>
+        </div>
+
+        <!-- Image Scanner -->
+        <div class="tool-card">
+          <div class="tool-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+            </svg>
+          </div>
+          <h3>Image QR Scanner</h3>
+          <p>Upload QR code images (JPG, PNG, SVG) and decode them instantly. Supports batch processing.</p>
+          <a href="/image-qr-code-scanner" class="btn btn-primary">Upload Image</a>
+        </div>
+
+        <!-- QR Generator -->
+        <div class="tool-card">
+          <div class="tool-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3 11h8V3H3v8zm2-6h4v4H5V5zm8-2v8h8V3h-8zm6 6h-4V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm13-2h-2v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/>
+            </svg>
+          </div>
+          <h3>QR Code Generator</h3>
+          <p>Create custom QR codes for URLs, text, email, phone numbers, and SMS messages.</p>
+          <a href="/qr-code-generator" class="btn btn-primary">Generate QR</a>
+        </div>
+
+        <!-- WiFi QR -->
+        <div class="tool-card">
+          <div class="tool-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/>
+            </svg>
+          </div>
+          <h3>WiFi QR Generator</h3>
+          <p>Generate WiFi QR codes with network name, password, and encryption type for easy sharing.</p>
+          <a href="/wifi-qr-code-scanner" class="btn btn-primary">Create WiFi QR</a>
+        </div>
+
+        <!-- History -->
+        <div class="tool-card">
+          <div class="tool-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+            </svg>
+          </div>
+          <h3>Scan History</h3>
+          <p>Access your last 100 scans stored locally. Export, copy, or delete history items.</p>
+          <a href="/image-qr-code-scanner#history" class="btn btn-primary">View History</a>
+        </div>
+
+        <!-- Download -->
+        <div class="tool-card">
+          <div class="tool-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2z"/>
+            </svg>
+          </div>
+          <h3>Download Results</h3>
+          <p>Download generated QR codes as PNG or SVG images. High-quality output for printing.</p>
+          <a href="/qr-code-generator" class="btn btn-primary">Try Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section" style="background-color: var(--bg-secondary);">
+    <div class="container">
+      <div class="text-center">
+        <h2>Qr Code Scanner Builtin Features</h2>
+        <p>Built with security, speed, and simplicity in mind</p>
+      </div>
+      
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon">🔒</div>
+          <h4>100% Secure</h4>
+          <p>All processing happens in your browser. Your data never leaves your device.</p>
+        </div>
+        
+        <div class="feature-item">
+          <div class="feature-icon">⚡</div>
+          <h4>Lightning Fast</h4>
+          <p>Instant QR code scanning and generation with no server delays.</p>
+        </div>
+        
+        <div class="feature-item">
+          <div class="feature-icon">📱</div>
+          <h4>Mobile Friendly</h4>
+          <p>Responsive design that works perfectly on all devices and screen sizes.</p>
+        </div>
+        
+        <div class="feature-item">
+          <div class="feature-icon">💾</div>
+          <h4>Local Storage</h4>
+          <p>Scan history saved locally on your device. Access anytime, anywhere.</p>
+        </div>
+        
+        <div class="feature-item">
+          <div class="feature-icon">🆓</div>
+          <h4>Completely Free</h4>
+          <p>No hidden fees, no subscriptions. All features are free forever.</p>
+        </div>
+        
+        <div class="feature-item">
+          <div class="feature-icon">🌙</div>
+          <h4>Dark Mode</h4>
+          <p>Eye-friendly dark mode for comfortable viewing in any lighting.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Security Warning Section -->
+  <section class="section">
+    <div class="container">
+      <div class="qr-interface">
+        <div class="text-center">
+          <h2>⚠️ Security Warning</h2>
+          <p>QR codes can contain malicious links. Always verify the URL before visiting:</p>
+        </div>
+        <ul style="margin: 2rem 0; padding-left: 2rem; color: var(--text-secondary);">
+          <li>Check for suspicious shortened URLs (bit.ly, tinyurl, etc.)</li>
+          <li>Verify the domain matches the expected website</li>
+          <li>Be cautious of QR codes in public places</li>
+          <li>Never scan QR codes that ask for sensitive information</li>
+          <li>Use antivirus software on your device</li>
+        </ul>
+        <div class="text-center">
+          <p><strong>ScanQR Pro shows you the URL before opening it.</strong></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section" style="background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));">
+    <div class="container text-center">
+      <h2>Ready to Get Started</h2>
+      <p style="font-size: 1.25rem; margin-bottom: 2rem;">Start scanning and generating QR codes in seconds</p>
+      <div class="hero-buttons">
+        <a href="/image-qr-code-scanner" class="btn btn-primary">Scan QR Code</a>
+        <a href="/qr-code-generator" class="btn btn-secondary">Generate QR Code</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>ScanQR Code</h4>
+          <p>Fast, secure, and free QR code scanner and generator. Your privacy is our priority.</p>
+          <div class="social-links">
+            <a href="#" class="social-icon" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </a>
+            <a href="#" class="social-icon" aria-label="Twitter">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+              </svg>
+            </a>
+            <a href="#" class="social-icon" aria-label="GitHub">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="/qr-code-generator">QR Generator</a></li>
+            <li><a href="/image-qr-code-scanner">Image Scanner</a></li>
+            <li><a href="/wifi-qr-code-scanner">WiFi QR</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <ul class="footer-links">
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="/privacy-policy">Privacy Policy</a></li>
+            <li><a href="/terms">Terms & Conditions</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2026 ScanQR. All rights reserved. Made with ❤️ for secure QR code processing.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="assets/js/main.bundle.js"></script>
+</body>
+</html>

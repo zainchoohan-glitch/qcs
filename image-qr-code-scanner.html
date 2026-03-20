@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- SEO Meta Tags -->
+  <title>QR Code Scanner - Scan QR Codes from Images | ScanQR Pro</title>
+  <meta name="description"
+    content="Free QR code scanner. Upload images (JPG, PNG, SVG) to decode QR codes or use your camera to scan in real-time. Fast, secure, and private.">
+  <meta name="keywords" content="QR code scanner, scan QR code, decode QR, image QR scanner, camera QR scanner">
+  <meta name="robots" content="index, follow">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23c2f711' width='100' height='100' rx='20'/%3E%3Cpath fill='%23000' d='M20 20h15v15H20zm0 45h15v15H20zm45-45h15v15H65zM20 40h5v5h-5zm10 0h5v5h-5zm10 0h5v5h-5zm10 0h5v5h-5zm10 0h5v5h-5zm-30 10h5v5h-5zm20 0h5v5h-5zm10 0h5v5h-5zm-20 10h5v5h-5zm10 0h5v5h-5zm10 0h5v5h-5zm10 0h5v5h-5z'/%3E%3C/svg%3E">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- HTML5-QRCode Library -->
+  <script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+</head>
+
+<body class="dark-mode">
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="/" class="logo">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M3 11h8V3H3v8zm2-6h4v4H5V5zm8-2v8h8V3h-8zm6 6h-4V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm13-2h-2v3h-3v2h3v3h2v-3h3v-2h-3v-3z" />
+          </svg>
+          ScanQR Pro
+        </a>
+
+        <ul class="nav-menu">
+          <li><a href="/">Home</a></li>
+          <li><a href="/qr-code-generator">QR Generator</a></li>
+          <li><a href="/image-qr-code-scanner">Image Scanner</a></li>
+          <li><a href="/wifi-qr-code-scanner">WiFi QR</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li>
+            <button class="theme-toggle" id="theme-toggle">
+              <span class="theme-icon">🌙</span>
+            </button>
+          </li>
+        </ul>
+
+        <div class="menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main style="padding-top: 100px;">
+    <section class="section">
+      <div class="container">
+        <div class="text-center mb-3">
+          <h1>QR Code Scanner</h1>
+          <p>Scan QR codes from images or use your camera</p>
+        </div>
+
+        <!-- Scanner Tabs -->
+        <div style="max-width: 800px; margin: 0 auto 2rem;">
+          <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <button id="tab-camera" class="btn btn-primary" onclick="switchTab('camera')">
+              📷 Camera Scanner
+            </button>
+            <button id="tab-upload" class="btn btn-secondary" onclick="switchTab('upload')">
+              📁 Upload Image
+            </button>
+            <button id="tab-history" class="btn btn-secondary" onclick="switchTab('history')">
+              📜 Scan History
+            </button>
+          </div>
+        </div>
+
+        <!-- Camera Scanner -->
+        <div id="camera-scanner" class="qr-interface scanner-tab">
+          <h2 class="text-center">Camera QR Scanner</h2>
+          <p class="text-center" style="color: var(--text-secondary); margin-bottom: 2rem;">
+            Allow camera access to scan QR codes in real-time
+          </p>
+
+          <div id="reader" style="max-width: 600px; margin: 0 auto;"></div>
+
+          <div style="text-align: center; margin-top: 2rem;">
+            <button id="start-camera" class="btn btn-primary" onclick="startCamera()">
+              Start Camera
+            </button>
+            <button id="stop-camera" class="btn btn-secondary hidden" onclick="stopCamera()">
+              Stop Camera
+            </button>
+          </div>
+
+          <div id="camera-result" class="qr-output hidden" style="margin-top: 2rem;">
+            <h3>Scan Result</h3>
+            <div id="camera-result-text"
+              style="padding: 1rem; background: var(--bg-primary); border-radius: 8px; word-break: break-all; margin: 1rem 0;">
+            </div>
+            <div class="qr-actions">
+              <button onclick="copyToClipboard(document.getElementById('camera-result-text').textContent)"
+                class="btn btn-primary">
+                Copy Text
+              </button>
+              <button onclick="openResultURL()" class="btn btn-secondary" id="open-url-btn" style="display: none;">
+                Open URL
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upload Image Scanner -->
+        <div id="upload-scanner" class="qr-interface scanner-tab hidden">
+          <h2 class="text-center">Upload QR Code Image</h2>
+          <p class="text-center" style="color: var(--text-secondary); margin-bottom: 2rem;">
+            Upload JPG, PNG, or SVG images containing QR codes
+          </p>
+
+          <div style="text-align: center;">
+            <label for="file-input" class="btn btn-primary" style="cursor: pointer;">
+              Choose Image File
+            </label>
+            <input type="file" id="file-input" accept="image/*" style="display: none;"
+              onchange="handleFileUpload(event)">
+          </div>
+
+          <div id="upload-preview" class="hidden" style="margin-top: 2rem; text-align: center;">
+            <h4>Uploaded Image</h4>
+            <img id="uploaded-image" style="max-width: 100%; max-height: 400px; border-radius: 8px; margin: 1rem 0;"
+              alt="Uploaded QR Code">
+          </div>
+
+          <!-- Dedicated target for html5-qrcode (must exist in DOM) -->
+          <div id="upload-reader"></div>
+
+
+          <div id="upload-result" class="qr-output hidden" style="margin-top: 2rem;">
+            <h3>Decoded Result</h3>
+            <div id="upload-result-text"
+              style="padding: 1rem; background: var(--bg-primary); border-radius: 8px; word-break: break-all; margin: 1rem 0;">
+            </div>
+            <div class="qr-actions">
+              <button onclick="copyToClipboard(document.getElementById('upload-result-text').textContent)"
+                class="btn btn-primary">
+                Copy Text
+              </button>
+              <button onclick="openUploadURL()" class="btn btn-secondary" id="open-upload-url-btn"
+                style="display: none;">
+                Open URL
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scan History -->
+        <div id="history-scanner" class="qr-interface scanner-tab hidden">
+          <h2 class="text-center">Scan History</h2>
+          <p class="text-center" style="color: var(--text-secondary); margin-bottom: 2rem;">
+            Last 100 scans stored locally on your device
+          </p>
+
+          <div style="text-align: center; margin-bottom: 2rem;">
+            <button
+              onclick="scanHistory.clearHistory(); scanHistory.renderHistory('history-list'); showAlert('History cleared', 'success');"
+              class="btn btn-secondary">
+              Clear All History
+            </button>
+          </div>
+
+          <div id="history-list" class="history-list"></div>
+        </div>
+
+        <!-- Instructions -->
+        <div
+          style="max-width: 800px; margin: 4rem auto 0; padding: 2rem; background-color: var(--bg-secondary); border-radius: 12px;">
+          <h3>📱 How to Use</h3>
+          <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 1.5rem;">
+            <div>
+              <h4>Camera Scanner</h4>
+              <ul style="color: var(--text-secondary); padding-left: 1.5rem;">
+                <li>Click "Start Camera"</li>
+                <li>Allow camera permissions</li>
+                <li>Point camera at QR code</li>
+                <li>Scanner detects automatically</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Image Upload</h4>
+              <ul style="color: var(--text-secondary); padding-left: 1.5rem;">
+                <li>Click "Choose Image File"</li>
+                <li>Select QR code image</li>
+                <li>Decoder processes instantly</li>
+                <li>View and copy results</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Security Notice -->
+        <div
+          style="max-width: 800px; margin: 2rem auto; padding: 1.5rem; background: rgba(255, 204, 0, 0.1); border: 2px solid #ffcc00; border-radius: 12px;">
+          <h4 style="color: #ffcc00; margin-bottom: 0.5rem;">⚠️ Security Notice</h4>
+          <p style="color: var(--text-secondary); margin: 0;">
+            Always verify URLs before clicking. QR codes can contain malicious links. We show you the URL before opening
+            it.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>ScanQR Pro</h4>
+          <p>Fast, secure, and free QR code scanner and generator.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/qr-code-generator">QR Generator</a></li>
+            <li><a href="/image-qr-code-scanner">Image Scanner</a></li>
+            <li><a href="/wifi-qr-code-scanner">WiFi QR</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Resources</h4>
+          <ul class="footer-links">
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="/privacy-policy">Privacy Policy</a></li>
+            <li><a href="/terms">Terms & Conditions</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 ScanQR Pro. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="assets/js/main.bundle.js"></script>
+  <script src="assets/js/qr-scanner.js"></script>
+</body>
+
+</html>

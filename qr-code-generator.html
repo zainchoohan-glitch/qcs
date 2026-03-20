@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <!-- SEO Meta Tags -->
+  <title>QR Code Generator - Create Free QR Codes Online | ScanQR Pro</title>
+  <meta name="description" content="Free online QR code generator. Create QR codes for URLs, text, email, phone numbers, and SMS messages. High-quality PNG and SVG downloads.">
+  <meta name="keywords" content="QR code generator, create QR code, generate QR, URL QR code, text QR code, email QR, phone QR">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23c2f711' width='100' height='100' rx='20'/%3E%3Cpath fill='%23000' d='M20 20h15v15H20zm0 45h15v15H20zm45-45h15v15H65zM20 40h5v5h-5zm10 0h5v5h-5zm10 0h5v5h-5zm10 0h5v5h-5zm10 0h5v5h-5zm-30 10h5v5h-5zm20 0h5v5h-5zm10 0h5v5h-5zm-20 10h5v5h-5zm10 0h5v5h-5zm10 0h5v5h-5zm10 0h5v5h-5z'/%3E%3C/svg%3E">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  
+  <!-- QRCode.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+</head>
+<body class="dark-mode">
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="/" class="logo">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 11h8V3H3v8zm2-6h4v4H5V5zm8-2v8h8V3h-8zm6 6h-4V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm13-2h-2v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/>
+          </svg>
+          ScanQR Pro
+        </a>
+        
+        <ul class="nav-menu">
+          <li><a href="/">Home</a></li>
+          <li><a href="/qr-code-generator">QR Generator</a></li>
+          <li><a href="/image-qr-code-scanner">Image Scanner</a></li>
+          <li><a href="/wifi-qr-code-scanner">WiFi QR</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li>
+            <button class="theme-toggle" id="theme-toggle">
+              <span class="theme-icon">🌙</span>
+            </button>
+          </li>
+        </ul>
+        
+        <div class="menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main style="padding-top: 100px;">
+    <section class="section">
+      <div class="container">
+        <div class="text-center mb-3">
+          <h1>QR Code Generator</h1>
+          <p>Create custom QR codes for URLs, text, email, phone, and SMS</p>
+        </div>
+
+        <div class="qr-interface">
+          <form id="qr-generator-form">
+            <!-- QR Type Selection -->
+            <div class="form-group">
+              <label for="qr-type">QR Code Type</label>
+              <select id="qr-type" required>
+                <option value="url">URL / Website</option>
+                <option value="text">Plain Text</option>
+                <option value="email">Email</option>
+                <option value="phone">Phone Number</option>
+                <option value="sms">SMS Message</option>
+              </select>
+            </div>
+
+            <!-- URL Input -->
+            <div id="url-fields" class="qr-type-fields">
+              <div class="form-group">
+                <label for="url-input">Website URL</label>
+                <input type="url" id="url-input" placeholder="https://example.com" required>
+              </div>
+            </div>
+
+            <!-- Text Input -->
+            <div id="text-fields" class="qr-type-fields hidden">
+              <div class="form-group">
+                <label for="text-input">Text Content</label>
+                <textarea id="text-input" rows="4" placeholder="Enter your text here..." required></textarea>
+              </div>
+            </div>
+
+            <!-- Email Input -->
+            <div id="email-fields" class="qr-type-fields hidden">
+              <div class="form-group">
+                <label for="email-input">Email Address</label>
+                <input type="email" id="email-input" placeholder="contact@example.com" required>
+              </div>
+              <div class="form-group">
+                <label for="email-subject">Subject (Optional)</label>
+                <input type="text" id="email-subject" placeholder="Email subject">
+              </div>
+              <div class="form-group">
+                <label for="email-body">Message (Optional)</label>
+                <textarea id="email-body" rows="3" placeholder="Email message"></textarea>
+              </div>
+            </div>
+
+            <!-- Phone Input -->
+            <div id="phone-fields" class="qr-type-fields hidden">
+              <div class="form-group">
+                <label for="phone-input">Phone Number</label>
+                <input type="tel" id="phone-input" placeholder="+1234567890" required>
+              </div>
+            </div>
+
+            <!-- SMS Input -->
+            <div id="sms-fields" class="qr-type-fields hidden">
+              <div class="form-group">
+                <label for="sms-number">Phone Number</label>
+                <input type="tel" id="sms-number" placeholder="+1234567890" required>
+              </div>
+              <div class="form-group">
+                <label for="sms-message">SMS Message</label>
+                <textarea id="sms-message" rows="3" placeholder="Your message"></textarea>
+              </div>
+            </div>
+
+            <!-- QR Code Size -->
+            <div class="form-group">
+              <label for="qr-size">QR Code Size</label>
+              <select id="qr-size">
+                <option value="200">Small (200x200)</option>
+                <option value="300" selected>Medium (300x300)</option>
+                <option value="400">Large (400x400)</option>
+                <option value="500">Extra Large (500x500)</option>
+              </select>
+            </div>
+
+            <!-- Generate Button -->
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              Generate QR Code
+            </button>
+          </form>
+
+          <!-- QR Code Output -->
+          <div id="qr-output" class="qr-output hidden">
+            <h3 class="text-center">Your QR Code</h3>
+            <div id="qrcode-container"></div>
+            <div class="qr-actions">
+              <button onclick="downloadQRCodeImage()" class="btn btn-primary">
+                Download PNG
+              </button>
+              <button onclick="copyQRToClipboard()" class="btn btn-secondary">
+                Copy to Clipboard
+              </button>
+              <button onclick="clearQRCode()" class="btn btn-secondary">
+                Clear
+              </button>
+            </div>
+            <div id="qr-data-display" style="margin-top: 1rem; word-break: break-all; color: var(--text-secondary);"></div>
+          </div>
+        </div>
+
+        <!-- How It Works Section -->
+        <div style="max-width: 800px; margin: 4rem auto 0;">
+          <h2 class="text-center">How to Use the QR Code Generator</h2>
+          <div class="tools-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 2rem;">
+            <div class="feature-item">
+              <div class="feature-icon">1️⃣</div>
+              <h4>Select Type</h4>
+              <p>Choose what kind of QR code you want to create</p>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">2️⃣</div>
+              <h4>Enter Data</h4>
+              <p>Fill in the required information</p>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">3️⃣</div>
+              <h4>Generate</h4>
+              <p>Click generate to create your QR code</p>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">4️⃣</div>
+              <h4>Download</h4>
+              <p>Save your QR code as an image</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tips Section -->
+        <div style="max-width: 800px; margin: 3rem auto; padding: 2rem; background-color: var(--bg-secondary); border-radius: 12px;">
+          <h3>💡 Pro Tips</h3>
+          <ul style="margin-top: 1rem; padding-left: 2rem; color: var(--text-secondary);">
+            <li>Use short URLs for better scanning reliability</li>
+            <li>Larger QR codes are easier to scan from a distance</li>
+            <li>Test your QR code before printing or sharing</li>
+            <li>Avoid very small sizes for printing (minimum 2x2 cm recommended)</li>
+            <li>High contrast backgrounds work best for scanning</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>ScanQR Pro</h4>
+          <p>Fast, secure, and free QR code scanner and generator.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/qr-code-generator">QR Generator</a></li>
+            <li><a href="/image-qr-code-scanner">Image Scanner</a></li>
+            <li><a href="/wifi-qr-code-scanner">WiFi QR</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Resources</h4>
+          <ul class="footer-links">
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="/privacy-policy">Privacy Policy</a></li>
+            <li><a href="/terms">Terms & Conditions</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 ScanQR Pro. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="assets/js/main.bundle.js"></script>
+  <script src="assets/js/qr-generator.js"></script>
+</body>
+</html>
