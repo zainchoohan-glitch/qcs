@@ -74,11 +74,11 @@ scanqr-pro/
 ├── qr-code-generator.html        # QR code generation tool
 ├── image-qr-code-scanner.html    # Image/camera scanning tool
 ├── wifi-qr-code-scanner.html     # WiFi QR generator
-├── about.html                    # About page
+├── about-us.html                 # About page
 ├── contact.html                  # Contact form with validation
 ├── blog.html                     # Blog with 3 articles
 ├── privacy-policy.html           # Privacy policy
-├── terms.html                    # Terms & conditions
+├── terms-of-service.html         # Terms & conditions
 ├── sitemap.xml                   # SEO sitemap
 ├── robots.txt                    # Search engine directives
 │
@@ -195,7 +195,7 @@ ScanQR Pro is a static website that works out of the box. No compilation, transp
 - Newsletter subscription section
 - SEO-optimized content
 
-### 6. About (`about.html`)
+### 6. About (`about-us.html`)
 - Company story and mission
 - Core values showcase
 - Technology stack explanation
@@ -214,7 +214,7 @@ ScanQR Pro is a static website that works out of the box. No compilation, transp
 - Client-side processing emphasis
 - User rights and controls
 
-### 9. Terms & Conditions (`terms.html`)
+### 9. Terms & Conditions (`terms-of-service.html`)
 - Usage terms and disclaimers
 - User responsibilities
 - Liability limitations

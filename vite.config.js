@@ -11,10 +11,10 @@ const pages = [
   'image-qr-code-scanner.html',
   'wifi-qr-code-scanner.html',
   'blog.html',
-  'about.html',
+  'about-us.html',
   'contact.html',
   'privacy-policy.html',
-  'terms.html',
+  'terms-of-service.html',
 ];
 
 const input = Object.fromEntries(

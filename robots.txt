@@ -18,8 +18,8 @@ Allow: /qr-code-generator
 Allow: /image-qr-code-scanner
 Allow: /wifi-qr-code-scanner
 Allow: /blog
-Allow: /about
+Allow: /about-us
 Allow: /contact
 Allow: /privacy-policy
-Allow: /terms
+Allow: /terms-of-service
 Allow: /assets/
