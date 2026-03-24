@@ -1,0 +1,57 @@
+# Netlify must publish the Vite build output — static files like sitemap.xml
+# live in dist/ (copied from public/ during `npm run build`).
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Extensionless URLs -> actual HTML emitted by Vite (same as local dev middleware).
+[[redirects]]
+  from = "/qr-code-generator"
+  to = "/qr-code-generator.html"
+  status = 200
+
+[[redirects]]
+  from = "/image-qr-code-scanner"
+  to = "/image-qr-code-scanner.html"
+  status = 200
+
+[[redirects]]
+  from = "/wifi-qr-code-scanner"
+  to = "/wifi-qr-code-scanner.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog"
+  to = "/blog.html"
+  status = 200
+
+[[redirects]]
+  from = "/about-us"
+  to = "/about-us.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 200
+
+[[redirects]]
+  from = "/privacy-policy"
+  to = "/privacy-policy.html"
+  status = 200
+
+[[redirects]]
+  from = "/terms-of-service"
+  to = "/terms-of-service.html"
+  status = 200
+
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Content-Type = "application/xml; charset=UTF-8"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=UTF-8"
