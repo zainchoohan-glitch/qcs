@@ -5,6 +5,31 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+/**
+ * Vite skips plain <script src="..."> (no type="module"), so dist/ had no JS.
+ * Rollup emits main.bundle.js; this copies all assets/js/*.js into dist after build.
+ */
+function copyAssetsJsPlugin() {
+  let outDir = 'dist';
+  return {
+    name: 'copy-assets-js',
+    configResolved(config) {
+      outDir = config.build.outDir;
+    },
+    async closeBundle() {
+      const srcDir = path.join(__dirname, 'assets', 'js');
+      const destDir = path.join(__dirname, outDir, 'assets', 'js');
+      await fs.promises.mkdir(destDir, { recursive: true });
+      const files = await fs.promises.readdir(srcDir);
+      for (const file of files) {
+        if (file.endsWith('.js') && file !== 'main.js') {
+          await fs.promises.copyFile(path.join(srcDir, file), path.join(destDir, file));
+        }
+      }
+    },
+  };
+}
+
 const pages = [
   'index.html',
   'qr-code-generator.html',
@@ -69,6 +94,7 @@ function makePermalinkMiddleware() {
 }
 
 export default defineConfig({
+  plugins: [copyAssetsJsPlugin()],
   build: {
     rollupOptions: {
       input,
