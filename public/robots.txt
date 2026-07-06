@@ -13,7 +13,7 @@ Disallow: /private/
 Disallow: /*.json$
 
 # Allow all important pages
-Allow: /
+Allow: /barcode-scanner
 Allow: /qr-code-generator
 Allow: /image-qr-code-scanner
 Allow: /wifi-qr-code-scanner
