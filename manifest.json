@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1.0",
+  "format": "html",
+  "metadata": {
+    "title": "Barcode Scanner Page - qrcodescannar.com",
+    "description": "Production-ready Barcode Scanner webpage for qrcodescannar.com",
+    "author": ""
+  },
+  "canvas": {"width": 1440, "height": 12400},
+  "playlist": ["index.html"]
+}
