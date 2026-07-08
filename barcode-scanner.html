@@ -66,7 +66,7 @@
   .cta-ghost:hover{border-color:var(--accent);color:var(--accent)}
 
   /* HERO */
-  .hero{padding:70px 0 60px;position:relative;overflow:hidden}
+  .hero{padding:70px 0 60px;position:relative;overflow:hidden;background:none!important}
   .hero::before{content:"";position:absolute;inset:0;pointer-events:none;
     background:radial-gradient(700px 400px at 85% 10%,rgba(194,247,17,0.10),transparent 60%),
       radial-gradient(500px 300px at 10% 90%,rgba(194,247,17,0.06),transparent 60%);}
@@ -90,7 +90,8 @@
   }
   .scanner-tabs{display:flex;gap:6px;background:#161616;padding:6px;border-radius:12px;margin-bottom:18px}
   .scanner-tab{flex:1;padding:11px 12px;font-size:.9rem;font-weight:600;color:var(--text-2);
-    border-radius:8px;text-align:center;transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+    border-radius:8px;text-align:center;transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px;
+    min-height:44px;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
   .scanner-tab.active{background:var(--accent);color:#1A1A1A}
   .scanner-tab svg{width:16px;height:16px}
 
@@ -150,7 +151,8 @@
   /* Controls under scanner */
   .scanner-controls{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
   .scanner-controls button{flex:1;min-width:130px;padding:12px 14px;font-size:.9rem;font-weight:600;
-    border-radius:10px;transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+    border-radius:10px;transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px;
+    min-height:48px;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
   .btn-primary{background:var(--accent);color:#1A1A1A}
   .btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 20px rgba(194,247,17,0.35)}
   .btn-secondary{background:var(--card-hi);color:var(--text);border:1px solid var(--border)}
@@ -307,6 +309,8 @@
   .content-block ul li{margin-bottom:10px;line-height:1.7}
   .content-block ul li::marker{color:var(--accent)}
   table{width:100%;border-collapse:collapse;margin:20px 0;background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:20px 0;border-radius:12px;border:1px solid var(--border)}
+  .table-wrap table{margin:0;border:none;border-radius:0;min-width:520px}
   th,td{padding:14px 18px;text-align:left;border-bottom:1px solid var(--border);font-size:.95rem}
   th{background:#1c1c1c;color:var(--accent);font-weight:700;text-transform:uppercase;font-size:.78rem;letter-spacing:.06em}
   td{color:var(--text-2)}
@@ -355,28 +359,73 @@
   .toast.show{transform:translateX(-50%) translateY(0)}
 
   @media (max-width:1024px){
-    .hero-grid{grid-template-columns:1fr;gap:48px}
+    .hero-grid{grid-template-columns:1fr;gap:40px}
     .grid-3{grid-template-columns:repeat(2,1fr)}
     .grid-4{grid-template-columns:repeat(3,1fr)}
     .steps{grid-template-columns:repeat(2,1fr);gap:32px 20px}
     .benefits-grid{grid-template-columns:repeat(2,1fr)}
     .foot-grid{grid-template-columns:1fr 1fr;gap:32px}
   }
+
   @media (max-width:768px){
-    section{padding:64px 0}
-    .cta-strip{padding:40px 24px}
-    .hero-stats{gap:24px}
+    main{padding-top:88px}
+    section{padding:52px 0}
+    .hero{padding:28px 0 36px!important}
+    .hero h1{font-size:1.85rem;margin-bottom:14px}
+    .hero .lead{font-size:1rem;max-width:none;margin-bottom:20px}
+    .hero-actions{flex-direction:column;align-items:stretch;margin-bottom:24px}
+    .hero-actions .cta-btn,.hero-actions .cta-ghost{width:100%;justify-content:center;min-height:48px}
+    .hero-stats{gap:16px;justify-content:space-between;width:100%}
+    .hero-stats .stat{flex:1;text-align:center;min-width:0}
+    .hero-stats .stat strong{font-size:1.4rem}
+    .scanner{padding:16px;border-radius:18px}
+    .scanner-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+    .scanner-tab{flex:none;font-size:.82rem;padding:10px 8px;gap:6px}
+    .scanner-tab svg{width:14px;height:14px}
+    .scanner-window{aspect-ratio:4/3;min-height:200px}
+    .gen-field select,.gen-field input{font-size:16px}
+    .scanner-controls{flex-direction:column}
+    .scanner-controls button{width:100%;min-width:0}
+    .scanner-foot{flex-direction:column;align-items:flex-start;gap:10px}
+    .result-actions{flex-direction:column}
+    .result-actions button,.result-actions a{width:100%;justify-content:center;min-height:44px}
+    .result-value{font-size:.9rem;padding:12px}
+    .section-head{margin-bottom:36px;padding:0 4px}
+    .section-head h2{font-size:1.55rem}
+    .cta-strip{padding:36px 20px;border-radius:18px}
+    .cta-strip .actions{flex-direction:column;align-items:stretch}
+    .cta-strip .actions .cta-btn,.cta-strip .actions .cta-ghost{width:100%;justify-content:center;min-height:48px}
+    .content-block{padding:0 4px}
+    .table-wrap{margin:16px -4px}
+    .faq summary{padding:16px 18px;font-size:.95rem}
+    .faq-body{padding:0 18px 18px;font-size:.92rem}
+    .foot-grid{grid-template-columns:1fr;gap:24px}
+    .foot-bottom{flex-direction:column;align-items:center;text-align:center;gap:8px}
+    .toast{left:16px;right:16px;bottom:max(16px,env(safe-area-inset-bottom));transform:translateY(100px);max-width:none;width:auto;text-align:center}
+    .toast.show{transform:translateY(0)}
   }
+
   @media (max-width:520px){
-    .grid-3,.grid-4{grid-template-columns:1fr 1fr}
-    .steps{grid-template-columns:1fr;gap:36px 0}
+    .container{padding:0 16px}
+    h1{font-size:1.65rem!important}
+    h2{font-size:1.4rem}
+    h3{font-size:1.05rem}
+    .grid-3,.grid-4{grid-template-columns:1fr;gap:12px}
+    .steps{grid-template-columns:1fr;gap:40px 0}
     .benefits-grid{grid-template-columns:1fr}
     .foot-grid{grid-template-columns:1fr}
-    h1{font-size:2.1rem}
-    h2{font-size:1.65rem}
-    .hero-actions{flex-direction:column;align-items:stretch}
-    .container{padding:0 18px}
-    .scanner{padding:16px}
+    .feature-card,.step,.benefit,.format-card{padding:20px 16px}
+    .step-num{left:16px;width:40px;height:40px;font-size:1rem}
+    .eyebrow{font-size:.72rem;padding:5px 12px;margin-bottom:14px}
+    .format-pills span{font-size:.68rem;padding:5px 9px}
+    footer{padding:40px 0 24px}
+  }
+
+  @media (max-width:380px){
+    .scanner-tabs{grid-template-columns:1fr}
+    .scanner-tab{font-size:.78rem}
+    .hero-stats{flex-direction:column;align-items:flex-start;gap:12px}
+    .hero-stats .stat{text-align:left}
   }
 </style>
 </head>
@@ -717,6 +766,7 @@
     <div>
       <h2>2. How Our Barcode Reader Actually Works</h2>
       <p>Under the hood the decoder is a five-stage pipeline. Understanding the stages helps explain why our <strong>barcode reader online</strong> can decode codes that phone camera apps often give up on.</p>
+      <div class="table-wrap">
       <table>
         <thead><tr><th>Stage</th><th>What Happens</th><th>Why It Matters</th></tr></thead>
         <tbody>
@@ -727,6 +777,7 @@
           <tr><td>5. Verify</td><td>Checksum validation confirms the result is correct.</td><td>Zero false-positives for supported formats.</td></tr>
         </tbody>
       </table>
+      </div>
     </div>
 
     <div>
@@ -744,6 +795,7 @@
 
     <div>
       <h2>4. Real-World Use Cases</h2>
+      <div class="table-wrap">
       <table>
         <thead><tr><th>User</th><th>Scenario</th><th>Format</th></tr></thead>
         <tbody>
@@ -755,6 +807,7 @@
           <tr><td>Marketers</td><td>Testing campaign QRs before launch</td><td>QR Code</td></tr>
         </tbody>
       </table>
+      </div>
     </div>
 
     <div>
