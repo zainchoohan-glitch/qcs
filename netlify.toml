@@ -10,7 +10,7 @@
   to = "/qr-code-generator.html"
   status = 200
 
-  [[redirects]]
+[[redirects]]
   from = "/barcode-scanner"
   to = "/barcode-scanner.html"
   status = 200
