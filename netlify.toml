@@ -16,6 +16,11 @@
   status = 200
 
 [[redirects]]
+  from = "/barcode-generator"
+  to = "/barcode-generator.html"
+  status = 200
+
+[[redirects]]
   from = "/image-qr-code-scanner"
   to = "/image-qr-code-scanner.html"
   status = 200

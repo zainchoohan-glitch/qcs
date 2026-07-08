@@ -14,6 +14,7 @@ Disallow: /*.json$
 
 # Allow all important pages
 Allow: /barcode-scanner
+Allow: /barcode-generator
 Allow: /qr-code-generator
 Allow: /image-qr-code-scanner
 Allow: /wifi-qr-code-scanner

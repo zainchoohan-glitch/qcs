@@ -33,6 +33,7 @@ function copyAssetsJsPlugin() {
 const pages = [
   'index.html',
   'barcode-scanner.html',
+  'barcode-generator.html',
   'qr-code-generator.html',
   'image-qr-code-scanner.html',
   'wifi-qr-code-scanner.html',

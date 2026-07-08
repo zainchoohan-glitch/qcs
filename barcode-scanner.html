@@ -11,12 +11,20 @@
 <meta name="theme-color" content="#1A1A1A" />
 <link rel="canonical" href="https://qrcodescannar.com/barcode-scanner" />
 
+<link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+<link rel="shortcut icon" href="/favicon/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+<link rel="manifest" href="/favicon/site.webmanifest" />
+
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+<link rel="stylesheet" href="/assets/css/style.css" />
+
+<style>
   html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
   body{
     font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
@@ -44,19 +52,9 @@
   p{color:var(--text);font-size:1.02rem;line-height:1.8}
   .muted{color:var(--text-2)}
   .container{max-width:1280px;margin:0 auto;padding:0 24px}
+  main{padding-top:72px}
   section{padding:96px 0;position:relative}
 
-  /* HEADER */
-  .nav{position:sticky;top:0;z-index:100;background:rgba(26,26,26,0.85);
-    backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--border);}
-  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1280px;margin:0 auto;gap:24px}
-  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem;color:var(--text)}
-  .logo-mark{width:36px;height:36px;border-radius:9px;background:var(--accent);
-    display:grid;place-items:center;color:#1A1A1A;font-weight:900;box-shadow:0 6px 20px rgba(194,247,17,0.35);}
-  .logo-mark svg{width:20px;height:20px}
-  .nav-links{display:flex;align-items:center;gap:6px;list-style:none}
-  .nav-links a{padding:9px 14px;border-radius:8px;font-size:.94rem;font-weight:500;color:var(--text-2);transition:.2s;}
-  .nav-links a:hover{color:var(--accent);background:var(--accent-soft)}
   .cta-btn{background:var(--accent);color:#1A1A1A;padding:11px 22px;border-radius:10px;
     font-weight:700;font-size:.94rem;transition:transform .2s,box-shadow .2s;
     display:inline-flex;align-items:center;gap:8px;}
@@ -66,7 +64,6 @@
     border-radius:10px;font-weight:600;font-size:.94rem;transition:.2s;
     display:inline-flex;align-items:center;gap:8px;background:transparent;}
   .cta-ghost:hover{border-color:var(--accent);color:var(--accent)}
-  .burger{display:none;width:44px;height:44px;border-radius:10px;border:1px solid var(--border);align-items:center;justify-content:center}
 
   /* HERO */
   .hero{padding:70px 0 60px;position:relative;overflow:hidden}
@@ -367,8 +364,6 @@
   }
   @media (max-width:768px){
     section{padding:64px 0}
-    .nav-links,.cta-btn.desktop{display:none}
-    .burger{display:flex}
     .cta-strip{padding:40px 24px}
     .hero-stats{gap:24px}
   }
@@ -385,32 +380,40 @@
   }
 </style>
 </head>
-<body>
+<body class="dark-mode">
 
-<!-- HEADER -->
-<header class="nav" role="banner">
-  <div class="nav-inner">
-    <a href="/" class="logo">
-      <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M3 11h8V3H3v8zm2-6h4v4H5V5zm8-2v8h8V3h-8zm6 6h-4V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm13-2h-2v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/>
-      </svg>
-      QR Code Scanner
-    </a>
-    <nav aria-label="Primary">
-      <ul class="nav-links">
+<header class="header">
+  <div class="container">
+    <nav class="nav">
+      <a href="/" class="logo">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M3 11h8V3H3v8zm2-6h4v4H5V5zm8-2v8h8V3h-8zm6 6h-4V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm13-2h-2v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/>
+        </svg>
+        QR Code Scanner
+      </a>
+
+      <ul class="nav-menu">
         <li><a href="/qr-code-generator">QR Generator</a></li>
         <li><a href="/image-qr-code-scanner">Image Scanner</a></li>
-        <li><a href="/barcode-scanner">Barcode Scanner</a></li>
+        <li><a href="/barcode-scanner" class="active" aria-current="page">Barcode Scanner</a></li>
+        <li><a href="/barcode-generator">Barcode Generator</a></li>
         <li><a href="/wifi-qr-code-scanner">WiFi QR</a></li>
         <li><a href="/blog">Blog</a></li>
         <li><a href="/about-us">About</a></li>
         <li><a href="/contact">Contact</a></li>
+        <li>
+          <button class="theme-toggle" id="theme-toggle">
+            <span class="theme-icon">🌙</span>
+          </button>
+        </li>
       </ul>
+
+      <div class="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </nav>
-    <a href="#scanner-panel" class="cta-btn desktop">Launch Tool
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-    </a>
-    <button class="burger" aria-label="Open menu"><span></span></button>
   </div>
 </header>
 
@@ -420,17 +423,17 @@
 <section class="hero" id="scanner">
   <div class="container hero-grid">
     <div>
-      <span class="eyebrow"><span class="dot"></span> Barcode Scanner &amp; Generator</span>
-      <h1>Scan &amp; Generate Any Barcode Instantly In Your Browser.</h1>
+      <span class="eyebrow"><span class="dot"></span> Live Barcode Scanner</span>
+      <h1>Scan Any Barcode Instantly, Right In Your Browser.</h1>
       <p class="lead">
-        A blazing-fast <strong style="color:var(--accent)">online Barcode Scanner &amp; Generator</strong> — read codes from camera or image, or create barcodes in 14+ formats. No installs, no accounts, no uploads.
+        A blazing-fast <strong style="color:var(--accent)">online Barcode Scanner</strong> that reads product codes, shipping labels and 2D matrix codes from your camera, an uploaded image, or drag &amp; drop — no installs, no accounts, no uploads.
       </p>
       <div class="hero-actions">
-        <a href="#scanner-panel" class="cta-btn" data-open-tool="scan">
+        <a href="#scanner-panel" class="cta-btn">
           Start Scanning Free
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
         </a>
-        <a href="#scanner-panel" class="cta-ghost" data-open-tool="generate">Generate Barcode</a>
+        <a href="/barcode-generator" class="cta-ghost">Generate Barcode</a>
       </div>
       <div class="hero-stats">
         <div class="stat"><strong>14+</strong><span>Formats supported</span></div>
@@ -441,17 +444,6 @@
 
     <!-- SCANNER + GENERATOR TOOL -->
     <div id="scanner-panel">
-      <div class="tool-switch" role="tablist" aria-label="Barcode tool mode">
-        <button class="tool-switch-btn active" type="button" data-tool="scan" role="tab" aria-selected="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg>
-          Scan Barcode
-        </button>
-        <button class="tool-switch-btn" type="button" data-tool="generate" role="tab" aria-selected="false">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-          Generate Barcode
-        </button>
-      </div>
-
       <div class="scanner" id="scanToolView" role="region" aria-label="Barcode scanner">
 
         <!-- Tabs -->
@@ -546,57 +538,6 @@
         <div class="scanner-foot">
           <span><span class="status-dot" id="statusDot"></span><span id="statusText">Idle</span></span>
           <span style="color:var(--accent);font-weight:600">🔒 Decoding on-device</span>
-        </div>
-      </div>
-
-      <!-- BARCODE GENERATOR -->
-      <div class="scanner generator-panel" id="generateToolView" hidden role="region" aria-label="Barcode generator">
-        <div class="gen-form">
-          <div class="gen-field">
-            <label for="genFormat">Barcode Format (14+ supported)</label>
-            <select id="genFormat"></select>
-          </div>
-          <div class="gen-field">
-            <label for="genInput">Content / Value</label>
-            <input id="genInput" type="text" placeholder="Enter barcode value" autocomplete="off" spellcheck="false" />
-            <p class="gen-hint" id="genHint">Select a format to see input rules.</p>
-          </div>
-          <div class="scanner-controls">
-            <button class="btn-primary" type="button" id="genBtn">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-              Generate Barcode
-            </button>
-            <button class="btn-secondary" type="button" id="genSampleBtn">Use Sample</button>
-          </div>
-        </div>
-
-        <div class="gen-preview-wrap">
-          <div class="gen-preview" id="genPreview">
-            <canvas id="genCanvas" aria-label="Generated barcode preview"></canvas>
-            <div class="gen-empty" id="genEmpty">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
-              <h4>Your barcode preview</h4>
-              <p>Choose a format, enter a value, and click Generate Barcode</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="gen-error" id="genError" hidden></div>
-
-        <div class="scanner-controls" id="genActions" hidden>
-          <button class="btn-primary" type="button" id="genDownloadBtn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
-            Download PNG
-          </button>
-          <button class="btn-secondary" type="button" id="genCopyValueBtn">Copy Value</button>
-          <button class="btn-secondary" type="button" id="genCopyImageBtn">Copy Image</button>
-        </div>
-
-        <div class="format-pills" id="genFormatPills" aria-label="Quick format selection"></div>
-
-        <div class="scanner-foot">
-          <span><span class="status-dot live"></span><span id="genStatusText">Generator ready</span></span>
-          <span style="color:var(--accent);font-weight:600">🔒 100% Private — generated on-device</span>
         </div>
       </div>
     </div>
@@ -880,18 +821,14 @@
   <div class="container">
     <div class="foot-grid">
       <div class="foot-col">
-        <a href="/" class="logo" style="margin-bottom:14px">
-          <span class="logo-mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 5v14M7 5v14M11 5v14M15 5v14M19 5v14"/></svg>
-          </span>
-          qrcodescannar
-        </a>
+        <h4>QR Code Scanner</h4>
         <p>The private, browser-first family of scanning and QR tools. Built for speed, engineered for privacy — free for everyone, everywhere.</p>
       </div>
       <div class="foot-col">
         <h4>Tools</h4>
         <a href="/qr-scanner">QR Scanner</a>
         <a href="/barcode-scanner">Barcode Scanner</a>
+        <a href="/barcode-generator">Barcode Generator</a>
         <a href="/qr-generator">QR Generator</a>
         <a href="/">Bulk Tools</a>
       </div>
@@ -909,7 +846,7 @@
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© <span id="year">2026</span> qrcodescannar. All rights reserved.</span>
+      <span>© <span id="year">2026</span> QR Code Scanner. All rights reserved.</span>
       <span>Made for scanners who value privacy.</span>
     </div>
   </div>
@@ -918,9 +855,8 @@
 <!-- Toast -->
 <div class="toast" id="toast">Copied to clipboard!</div>
 
-<!-- ZXing decoder (scan) + bwip-js (generate) -->
+<!-- ZXing decoder (scan) -->
 <script src="https://unpkg.com/@zxing/library@0.21.3/umd/index.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bwip-js@4.5.1/dist/bwip-js-min.js"></script>
 <script>
 (function(){
   'use strict';
@@ -1353,247 +1289,19 @@
   updatePlaceholderHint();
   setStatus('Idle — ready to scan', false);
 
-  /* ========== BARCODE GENERATOR (bwip-js — 14+ formats) ========== */
-  const GEN_FORMATS = [
-    { bcid: 'ean13', label: 'EAN-13', sample: '5901234123457', hint: '12 or 13 digits. Checksum is auto-added for 12-digit input.' },
-    { bcid: 'ean8', label: 'EAN-8', sample: '96385074', hint: '7 or 8 digits for small retail packages.' },
-    { bcid: 'upca', label: 'UPC-A', sample: '036000291452', hint: '11 or 12 digits used in North American retail.' },
-    { bcid: 'upce', label: 'UPC-E', sample: '04252614', hint: '6, 7, or 8 digit compressed UPC code.' },
-    { bcid: 'code39', label: 'Code 39', sample: 'CODE39', hint: 'Uppercase letters, digits, and - . $ / + % space.' },
-    { bcid: 'code93', label: 'Code 93', sample: 'CODE93', hint: 'Uppercase ASCII subset — denser than Code 39.' },
-    { bcid: 'code128', label: 'Code 128', sample: 'Hello128', hint: 'Full ASCII — ideal for logistics and labels.' },
-    { bcid: 'codabar', label: 'Codabar', sample: 'A40156B', hint: 'Must start and end with A, B, C, or D.' },
-    { bcid: 'interleaved2of5', label: 'ITF (Interleaved 2 of 5)', sample: '1234567890', hint: 'Numeric only — even number of digits required.' },
-    { bcid: 'datamatrix', label: 'Data Matrix', sample: 'DataMatrix123', hint: 'Compact 2D code for parts, medical, and tech IDs.' },
-    { bcid: 'pdf417', label: 'PDF417', sample: 'PDF417-DATA', hint: 'Stacked 2D code for IDs, boarding passes, and docs.' },
-    { bcid: 'azteccode', label: 'Aztec', sample: 'Aztec123', hint: 'Dense 2D code for tickets and mobile scanning.' },
-    { bcid: 'qrcode', label: 'QR Code', sample: 'https://qrcodescannar.com', hint: 'URLs, plain text, contact data, or any payload.' },
-    { bcid: 'rss14', label: 'RSS-14', sample: '01234567890128', hint: '13 or 14 digit GTIN for retail shelf labeling.' },
-    { bcid: 'rsslimited', label: 'RSS Limited', sample: '012345678905', hint: '13-digit GTIN for small-item retail packages.' }
-  ];
-
-  const toolSwitchBtns = document.querySelectorAll('.tool-switch-btn');
-  const scanToolView     = document.getElementById('scanToolView');
-  const generateToolView = document.getElementById('generateToolView');
-  const genFormat        = document.getElementById('genFormat');
-  const genInput         = document.getElementById('genInput');
-  const genHint          = document.getElementById('genHint');
-  const genBtn           = document.getElementById('genBtn');
-  const genSampleBtn     = document.getElementById('genSampleBtn');
-  const genPreview       = document.getElementById('genPreview');
-  const genCanvas        = document.getElementById('genCanvas');
-  const genError         = document.getElementById('genError');
-  const genActions       = document.getElementById('genActions');
-  const genDownloadBtn   = document.getElementById('genDownloadBtn');
-  const genCopyValueBtn  = document.getElementById('genCopyValueBtn');
-  const genCopyImageBtn  = document.getElementById('genCopyImageBtn');
-  const genFormatPills   = document.getElementById('genFormatPills');
-  const genStatusText    = document.getElementById('genStatusText');
-
-  function is2dFormat(bcid){
-    return bcid === 'qrcode' || bcid === 'datamatrix' || bcid === 'pdf417' || bcid === 'azteccode';
-  }
-
-  function getFormatByBcid(bcid){
-    return GEN_FORMATS.find(function(f){ return f.bcid === bcid; }) || GEN_FORMATS[0];
-  }
-
-  function populateGenFormats(){
-    GEN_FORMATS.forEach(function(fmt){
-      const opt = document.createElement('option');
-      opt.value = fmt.bcid;
-      opt.textContent = fmt.label;
-      genFormat.appendChild(opt);
-
-      const pill = document.createElement('span');
-      pill.className = 'clickable';
-      pill.textContent = fmt.label.replace(' (Interleaved 2 of 5)', '');
-      pill.dataset.bcid = fmt.bcid;
-      pill.setAttribute('role', 'button');
-      pill.setAttribute('tabindex', '0');
-      genFormatPills.appendChild(pill);
-    });
-  }
-
-  function updateGenHint(){
-    const fmt = getFormatByBcid(genFormat.value);
-    genHint.textContent = fmt.hint;
-    genInput.placeholder = 'e.g. ' + fmt.sample;
-  }
-
-  function highlightGenPill(bcid){
-    genFormatPills.querySelectorAll('span').forEach(function(pill){
-      pill.classList.toggle('active', pill.dataset.bcid === bcid);
-    });
-  }
-
-  function selectFormatByBcid(bcid){
-    if (!GEN_FORMATS.some(function(f){ return f.bcid === bcid; })) return;
-    genFormat.value = bcid;
-    updateGenHint();
-    highlightGenPill(bcid);
-  }
-
-  function showGenError(msg){
-    genError.textContent = msg;
-    genError.hidden = false;
-    genPreview.classList.remove('has-barcode');
-    genActions.hidden = true;
-    if (genStatusText) genStatusText.textContent = 'Generation failed';
-  }
-
-  function hideGenError(){
-    genError.hidden = true;
-    genError.textContent = '';
-  }
-
-  function switchTool(tool){
-    const isScan = tool === 'scan';
-    toolSwitchBtns.forEach(function(btn){
-      const active = btn.dataset.tool === tool;
-      btn.classList.toggle('active', active);
-      btn.setAttribute('aria-selected', active ? 'true' : 'false');
-    });
-
-    if (isScan) {
-      scanToolView.removeAttribute('hidden');
-      generateToolView.setAttribute('hidden', '');
-    } else {
-      stopScanning();
-      scanToolView.setAttribute('hidden', '');
-      generateToolView.removeAttribute('hidden');
-      updateGenHint();
-    }
-  }
-
-  async function generateBarcode(){
-    hideGenError();
-
-    if (!window.bwipjs || typeof bwipjs.toCanvas !== 'function') {
-      showGenError('Barcode generator library failed to load. Check your connection and refresh.');
-      return;
-    }
-
-    const fmt = getFormatByBcid(genFormat.value);
-    const text = genInput.value.trim();
-    if (!text) {
-      showGenError('Please enter a value to encode.');
-      genInput.focus();
-      return;
-    }
-
-    genBtn.disabled = true;
-    if (genStatusText) genStatusText.textContent = 'Generating…';
-
-    try {
-      const opts = {
-        bcid: fmt.bcid,
-        text: text,
-        scale: is2dFormat(fmt.bcid) ? 4 : 3,
-        includetext: true,
-        textxalign: 'center',
-        backgroundcolor: 'FFFFFF'
-      };
-      if (!is2dFormat(fmt.bcid)) opts.height = 12;
-
-      await bwipjs.toCanvas(genCanvas, opts);
-      genPreview.classList.add('has-barcode');
-      genActions.hidden = false;
-      if (genStatusText) genStatusText.textContent = 'Generated ' + fmt.label + ' — 100% on-device';
-      showToast(fmt.label + ' barcode generated!');
-    } catch (err) {
-      const msg = (err && err.message) ? String(err.message) : 'Could not generate barcode for this value.';
-      showGenError(msg.replace(/^bwipp\./, '').replace(/:/g, ': '));
-    } finally {
-      genBtn.disabled = false;
-    }
-  }
-
-  populateGenFormats();
-  updateGenHint();
-  highlightGenPill(genFormat.value);
-
-  genFormat.addEventListener('change', function(){
-    updateGenHint();
-    highlightGenPill(genFormat.value);
-    hideGenError();
-  });
-
-  genSampleBtn.addEventListener('click', function(){
-    const fmt = getFormatByBcid(genFormat.value);
-    genInput.value = fmt.sample;
-    generateBarcode();
-  });
-
-  genBtn.addEventListener('click', generateBarcode);
-  genInput.addEventListener('keydown', function(e){
-    if (e.key === 'Enter') generateBarcode();
-  });
-
-  genFormatPills.addEventListener('click', function(e){
-    const pill = e.target.closest('span[data-bcid]');
-    if (!pill) return;
-    selectFormatByBcid(pill.dataset.bcid);
-    hideGenError();
-  });
-
-  genDownloadBtn.addEventListener('click', function(){
-    if (!genPreview.classList.contains('has-barcode')) return;
-    const link = document.createElement('a');
-    link.href = genCanvas.toDataURL('image/png');
-    link.download = 'barcode-' + genFormat.value + '.png';
-    link.click();
-    showToast('PNG downloaded!');
-  });
-
-  genCopyValueBtn.addEventListener('click', async function(){
-    const text = genInput.value.trim();
-    if (!text) return;
-    try {
-      await navigator.clipboard.writeText(text);
-      showToast('Value copied!');
-    } catch (_) {
-      showToast('Copy failed — select and copy manually.');
-    }
-  });
-
-  genCopyImageBtn.addEventListener('click', async function(){
-    if (!genPreview.classList.contains('has-barcode')) return;
-    try {
-      const blob = await new Promise(function(resolve){ genCanvas.toBlob(resolve, 'image/png'); });
-      if (!blob) throw new Error('No image');
-      await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
-      showToast('Barcode image copied!');
-    } catch (_) {
-      showToast('Image copy not supported — use Download PNG instead.');
-    }
-  });
-
-  toolSwitchBtns.forEach(function(btn){
-    btn.addEventListener('click', function(){ switchTool(btn.dataset.tool); });
-  });
-
-  document.querySelectorAll('[data-open-tool]').forEach(function(link){
-    link.addEventListener('click', function(){ switchTool(link.dataset.openTool); });
-  });
-
   document.querySelectorAll('.format-card[data-bcid]').forEach(function(card){
-    function openGenerator(){
-      switchTool('generate');
-      selectFormatByBcid(card.dataset.bcid);
-      document.getElementById('scanner-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    function goGenerate(){
+      location.href = '/barcode-generator?format=' + encodeURIComponent(card.dataset.bcid);
     }
-    card.addEventListener('click', openGenerator);
+    card.addEventListener('click', goGenerate);
     card.addEventListener('keydown', function(e){
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openGenerator();
-      }
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goGenerate(); }
     });
   });
 })();
 </script>
 
+<script src="/assets/js/main.bundle.js"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>

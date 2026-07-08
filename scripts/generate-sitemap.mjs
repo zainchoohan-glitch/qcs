@@ -16,6 +16,8 @@ const LASTMOD = new Date().toISOString().slice(0, 10);
 const entries = [
   { path: '/', changefreq: 'weekly', priority: '1.0' },
   { path: '/qr-code-generator', changefreq: 'monthly', priority: '0.9' },
+  { path: '/barcode-scanner', changefreq: 'monthly', priority: '0.9' },
+  { path: '/barcode-generator', changefreq: 'monthly', priority: '0.9' },
   { path: '/image-qr-code-scanner', changefreq: 'monthly', priority: '0.9' },
   { path: '/wifi-qr-code-scanner', changefreq: 'monthly', priority: '0.8' },
   { path: '/blog', changefreq: 'weekly', priority: '0.7' },
