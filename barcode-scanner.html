@@ -39,6 +39,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
+<!-- Barcode/QR decoding engine (runs fully client-side in the browser) -->
+<script src="https://unpkg.com/@zxing/library@0.20.0/umd/index.min.js"></script>
+
 <!-- Schema: WebPage + Breadcrumb + FAQ + SoftwareApplication -->
 <script type="application/ld+json">
 {
@@ -67,7 +70,7 @@
       "applicationCategory": "UtilitiesApplication",
       "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
       "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.9", "ratingCount": "2143"},
-      "featureList": "Camera scan, Image upload, Drag & drop, Multi-format decoding, Offline capable, No login required"
+      "featureList": "Camera scan, Image upload, Drag & drop, Multi-format decoding, No login required"
     },
     {
       "@type": "FAQPage",
@@ -77,12 +80,10 @@
         {"@type": "Question", "name": "Which barcode formats are supported?", "acceptedAnswer": {"@type": "Answer", "text": "We decode all major formats including EAN-13, EAN-8, UPC-A, UPC-E, Code 39, Code 93, Code 128, Codabar, ITF, Data Matrix, PDF417, Aztec and QR Code."}},
         {"@type": "Question", "name": "Is my data private when I scan a barcode?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Detection runs entirely on your device inside the browser. No image or camera frame ever leaves your machine, so scans stay completely private."}},
         {"@type": "Question", "name": "Do I need to install an app?", "acceptedAnswer": {"@type": "Answer", "text": "No installation is required. The scanner runs directly in modern browsers on desktop, tablet and mobile — Chrome, Safari, Firefox, Edge and Brave."}},
-        {"@type": "Question", "name": "Can I scan a product barcode from a photo?", "acceptedAnswer": {"@type": "Answer", "text": "Absolutely. Drop or upload any image (JPG, PNG, WebP, HEIC or PDF page) and the decoder will locate the barcode automatically."}},
-        {"@type": "Question", "name": "Does the tool work offline?", "acceptedAnswer": {"@type": "Answer", "text": "After the first load the page is cached, so scanning continues to work with no network connection."}},
+        {"@type": "Question", "name": "Can I scan a product barcode from a photo?", "acceptedAnswer": {"@type": "Answer", "text": "Absolutely. Drop or upload any image (JPG, PNG or WebP) and the decoder will locate the barcode automatically."}},
         {"@type": "Question", "name": "Which devices are supported?", "acceptedAnswer": {"@type": "Answer", "text": "Any device with a modern browser: iPhone, iPad, Android phones, Chromebooks, Windows, macOS and Linux desktops."}},
         {"@type": "Question", "name": "Do I need to create an account?", "acceptedAnswer": {"@type": "Answer", "text": "No login, no sign-up, no email required. Open the page and start scanning."}},
-        {"@type": "Question", "name": "How accurate is the barcode recognition?", "acceptedAnswer": {"@type": "Answer", "text": "Our AI-assisted decoder handles blur, glare, angles up to 45°, and partially damaged barcodes with high accuracy on clean images and typical retail codes."}},
-        {"@type": "Question", "name": "Can I scan multiple barcodes at once?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. When an image contains several barcodes the scanner will decode each one and list every result separately."}},
+        {"@type": "Question", "name": "How accurate is the barcode recognition?", "acceptedAnswer": {"@type": "Answer", "text": "Our decoder handles blur, glare, angles and partially damaged barcodes with high accuracy on clean images and typical retail codes."}},
         {"@type": "Question", "name": "Is this tool safe for commercial use?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Because nothing is uploaded to a server, it is safe to scan internal inventory, invoices, shipping labels or any confidential barcode data."}}
       ]
     }
@@ -101,10 +102,8 @@
     line-height:1.8;
     -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
-    width:100%;
-    min-height:100vh;
   }
-  img{max-width:100%;display:block;height:auto}
+  img{max-width:100%;display:block}
   a{color:inherit;text-decoration:none}
   button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
   :focus-visible{outline:2px solid #C2F711;outline-offset:3px;border-radius:4px}
@@ -126,13 +125,13 @@
   }
 
   h1,h2,h3,h4{color:var(--accent);line-height:1.15;letter-spacing:-0.02em}
-  h1{font-size:clamp(2rem,5.2vw,4.5rem);font-weight:800}
-  h2{font-size:clamp(1.6rem,3.5vw,2.85rem);font-weight:700;margin-bottom:1rem}
-  h3{font-size:clamp(1.05rem,1.8vw,1.4rem);font-weight:600;margin-bottom:.6rem}
-  p{color:var(--text);font-size:clamp(.94rem,1.1vw,1.02rem);line-height:1.8}
+  h1{font-size:clamp(2.4rem,5.2vw,4.5rem);font-weight:800}
+  h2{font-size:clamp(1.9rem,3.5vw,2.85rem);font-weight:700;margin-bottom:1rem}
+  h3{font-size:clamp(1.15rem,1.8vw,1.4rem);font-weight:600;margin-bottom:.6rem}
+  p{color:var(--text);font-size:1.02rem;line-height:1.8}
   .muted{color:var(--text-2)}
-  .container{max-width:1280px;margin:0 auto;padding:0 24px;width:100%}
-  section{padding:clamp(48px,7vw,96px) 0;position:relative}
+  .container{max-width:1280px;margin:0 auto;padding:0 24px}
+  section{padding:96px 0;position:relative}
 
   /* ============ HEADER ============ */
   .nav{
@@ -142,105 +141,44 @@
     -webkit-backdrop-filter:saturate(180%) blur(14px);
     border-bottom:1px solid var(--border);
   }
-  .nav-inner{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:14px 24px;max-width:1280px;margin:0 auto;gap:16px;
-  }
-  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem;color:var(--text);flex-shrink:0}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1280px;margin:0 auto;gap:24px;position:relative}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem;color:var(--text)}
   .logo-mark{
     width:36px;height:36px;border-radius:9px;
     background:var(--accent);
     display:grid;place-items:center;
     color:#1A1A1A;font-weight:900;font-size:1rem;
     box-shadow:0 6px 20px rgba(194,247,17,0.35);
-    flex-shrink:0;
   }
   .logo-mark svg{width:20px;height:20px}
-  .nav-menu{
-    display:flex;align-items:center;gap:4px;list-style:none;
-    margin:0;padding:0;
+  .nav-links{display:flex;align-items:center;gap:6px;list-style:none}
+  .nav-links a{
+    padding:9px 14px;border-radius:8px;font-size:.94rem;font-weight:500;
+    color:var(--text-2);transition:.2s;
   }
-  .nav-menu li{list-style:none}
-  .nav-menu a{
-    padding:9px 12px;border-radius:8px;font-size:.9rem;font-weight:500;
-    color:var(--text-2);transition:.2s;white-space:nowrap;
-  }
-  .nav-menu a:hover{color:var(--accent);background:var(--accent-soft)}
-  .nav-menu a.active{color:var(--accent)}
-  .theme-toggle{
-    width:38px;height:38px;border-radius:8px;
-    display:grid;place-items:center;
-    background:transparent;border:1px solid var(--border);
-    transition:.2s;
-  }
-  .theme-toggle:hover{border-color:var(--accent);background:var(--accent-soft)}
+  .nav-links a:hover{color:var(--accent);background:var(--accent-soft)}
+  .nav-links a.active{color:var(--accent)}
   .cta-btn{
     background:var(--accent);color:#1A1A1A;
-    padding:11px 20px;border-radius:10px;
-    font-weight:700;font-size:.92rem;
+    padding:11px 22px;border-radius:10px;
+    font-weight:700;font-size:.94rem;
     transition:transform .2s,box-shadow .2s;
     display:inline-flex;align-items:center;gap:8px;
-    white-space:nowrap;
   }
   .cta-btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(194,247,17,0.35)}
   .cta-ghost{
     border:1px solid var(--border);color:var(--text);
-    padding:11px 20px;border-radius:10px;font-weight:600;font-size:.92rem;
+    padding:11px 22px;border-radius:10px;font-weight:600;font-size:.94rem;
     transition:.2s;display:inline-flex;align-items:center;gap:8px;background:transparent;
-    white-space:nowrap;
   }
   .cta-ghost:hover{border-color:var(--accent);color:var(--accent)}
-  .burger{
-    display:none;width:44px;height:44px;border-radius:10px;
-    border:1px solid var(--border);align-items:center;justify-content:center;
-    position:relative;background:transparent;flex-shrink:0;
-  }
-  .burger span,
-  .burger span::before,
-  .burger span::after{
-    display:block;width:20px;height:2px;background:var(--text);
-    border-radius:2px;transition:transform .3s,top .3s,opacity .3s;
-  }
-  .burger span{position:relative}
-  .burger span::before,.burger span::after{
-    content:"";position:absolute;left:0;
-  }
-  .burger span::before{top:-6px}
-  .burger span::after{top:6px}
-  .burger.open span{background:transparent}
-  .burger.open span::before{top:0;transform:rotate(45deg)}
-  .burger.open span::after{top:0;transform:rotate(-45deg)}
-
-  /* Mobile nav overlay */
-  .mobile-nav{
-    display:none;
-    position:fixed;top:68px;left:0;right:0;bottom:0;
-    background:rgba(20,20,20,0.98);
-    backdrop-filter:blur(14px);
-    -webkit-backdrop-filter:blur(14px);
-    z-index:99;
-    padding:24px;
-    overflow-y:auto;
-    animation:slideDown .3s ease;
-  }
-  @keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
-  .mobile-nav.active{display:block}
-  .mobile-nav ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:4px}
-  .mobile-nav a{
-    display:block;padding:14px 16px;border-radius:10px;
-    color:var(--text);font-weight:500;font-size:1rem;
-    border:1px solid transparent;transition:.2s;
-  }
-  .mobile-nav a:hover,.mobile-nav a:active{
-    background:var(--accent-soft);color:var(--accent);
-    border-color:var(--border-hi);
-  }
-  .mobile-nav .cta-btn{
-    margin-top:12px;justify-content:center;width:100%;padding:14px;
-  }
+  .burger{display:none;width:44px;height:44px;border-radius:10px;border:1px solid var(--border);align-items:center;justify-content:center}
+  .burger span{width:20px;height:2px;background:var(--text);position:relative}
+  .burger span::before,.burger span::after{content:"";position:absolute;left:0;width:20px;height:2px;background:var(--text)}
+  .burger span::before{top:-6px}.burger span::after{top:6px}
 
   /* ============ HERO ============ */
-  .hero{padding:clamp(40px,6vw,70px) 0 clamp(40px,6vw,60px);position:relative;overflow:hidden}
+  .hero{padding:70px 0 60px;position:relative;overflow:hidden}
   .hero::before{
     content:"";position:absolute;inset:0;pointer-events:none;
     background:
@@ -248,93 +186,114 @@
       radial-gradient(500px 300px at 10% 90%,rgba(194,247,17,0.06),transparent 60%);
   }
   .hero-grid{
-    display:grid;grid-template-columns:1.05fr 1fr;
-    gap:clamp(32px,5vw,60px);align-items:center;
+    display:grid;grid-template-columns:1.05fr 1fr;gap:60px;align-items:center;
     position:relative;z-index:1;
   }
   .eyebrow{
     display:inline-flex;align-items:center;gap:8px;
     padding:6px 14px;border-radius:99px;
     background:var(--accent-soft);border:1px solid var(--border-hi);
-    color:var(--accent);font-weight:600;font-size:.78rem;
-    letter-spacing:.06em;text-transform:uppercase;margin-bottom:20px;
+    color:var(--accent);font-weight:600;font-size:.82rem;
+    letter-spacing:.06em;text-transform:uppercase;margin-bottom:24px;
   }
   .eyebrow .dot{width:6px;height:6px;background:var(--accent);border-radius:99px;box-shadow:0 0 0 4px rgba(194,247,17,0.2)}
   .hero h1{margin-bottom:20px}
-  .hero .lead{font-size:clamp(1rem,1.4vw,1.15rem);color:var(--text-2);max-width:560px;margin-bottom:28px}
-  .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:32px}
-  .hero-stats{display:flex;gap:clamp(20px,3vw,36px);flex-wrap:wrap}
-  .hero-stats .stat strong{display:block;font-size:clamp(1.4rem,2.4vw,1.75rem);color:var(--accent);font-weight:800;line-height:1.1}
-  .hero-stats .stat span{font-size:.82rem;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
+  .hero .lead{font-size:1.15rem;color:var(--text-2);max-width:560px;margin-bottom:32px}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:36px}
+  .hero-stats{display:flex;gap:36px;flex-wrap:wrap}
+  .hero-stats .stat strong{display:block;font-size:1.75rem;color:var(--accent);font-weight:800;line-height:1.1}
+  .hero-stats .stat span{font-size:.86rem;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
 
   /* Scanner card */
   .scanner{
     background:linear-gradient(180deg,#242424 0%,#1e1e1e 100%);
     border:1px solid var(--border);
-    border-radius:24px;padding:clamp(16px,2vw,24px);
+    border-radius:24px;padding:24px;
     box-shadow:var(--shadow);
     position:relative;
-    animation:float 6s ease-in-out infinite;
-    width:100%;
   }
-  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-  .scanner-tabs{
-    display:flex;gap:6px;background:#161616;
-    padding:6px;border-radius:12px;margin-bottom:18px;
-    overflow-x:auto;-webkit-overflow-scrolling:touch;
-  }
+  .scanner-tabs{display:flex;gap:6px;background:#161616;padding:6px;border-radius:12px;margin-bottom:18px}
   .scanner-tab{
-    flex:1;min-width:0;padding:11px 12px;font-size:.85rem;font-weight:600;color:var(--text-2);
-    border-radius:8px;text-align:center;transition:.2s;
-    display:flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;
+    flex:1;padding:11px 12px;font-size:.9rem;font-weight:600;color:var(--text-2);
+    border-radius:8px;text-align:center;transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px;
   }
   .scanner-tab.active{background:var(--accent);color:#1A1A1A}
-  .scanner-tab svg{width:16px;height:16px;flex-shrink:0}
+  .scanner-tab svg{width:16px;height:16px}
   .scanner-window{
     aspect-ratio:16/10;
     background:linear-gradient(180deg,#111 0%,#0c0c0c 100%);
     border:1px dashed rgba(194,247,17,0.35);
     border-radius:16px;
     position:relative;overflow:hidden;
-    display:grid;place-items:center;
+    display:flex;align-items:center;justify-content:center;
+    transition:border-color .2s,background .2s;
   }
+  .scanner-window.drag-over{border-color:var(--accent);background:rgba(194,247,17,0.08)}
   .scanner-window::before{
     content:"";position:absolute;left:8%;right:8%;top:50%;height:2px;
     background:linear-gradient(90deg,transparent,#C2F711,transparent);
     box-shadow:0 0 24px #C2F711;
+    opacity:0;pointer-events:none;
+  }
+  .scanner-window.scanning::before{
+    opacity:1;
     animation:scanline 2.2s ease-in-out infinite;
   }
   @keyframes scanline{
-    0%,100%{transform:translateY(-70px);opacity:.9}
-    50%{transform:translateY(70px);opacity:1}
+    0%,100%{transform:translateY(-90px);opacity:.9}
+    50%{transform:translateY(90px);opacity:1}
   }
-  .barcode-mock{
-    display:flex;align-items:flex-end;gap:3px;height:clamp(70px,10vw,110px);
-    padding:clamp(12px,2vw,20px);position:relative;z-index:2;
-    background:#fff;border-radius:8px;max-width:90%;
+  #scannerVideo,#previewImage{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    display:none;background:#000;
   }
-  .barcode-mock i{display:block;background:#111;width:3px;border-radius:1px}
-  .corner{position:absolute;width:26px;height:26px;border:2px solid var(--accent)}
+  #scannerVideo.active,#previewImage.active{display:block}
+  .scanner-placeholder{
+    position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;
+    color:var(--muted);text-align:center;padding:20px;cursor:pointer;
+  }
+  .scanner-placeholder svg{width:36px;height:36px;color:var(--accent)}
+  .scanner-placeholder p{color:var(--text-2);font-size:.92rem;margin:0}
+  .scanner-placeholder span{font-size:.78rem;color:var(--muted)}
+  .corner{position:absolute;width:26px;height:26px;border:2px solid var(--accent);z-index:3;pointer-events:none}
   .corner.tl{top:14px;left:14px;border-right:none;border-bottom:none;border-radius:6px 0 0 0}
   .corner.tr{top:14px;right:14px;border-left:none;border-bottom:none;border-radius:0 6px 0 0}
   .corner.bl{bottom:14px;left:14px;border-right:none;border-top:none;border-radius:0 0 0 6px}
   .corner.br{bottom:14px;right:14px;border-left:none;border-top:none;border-radius:0 0 6px 0}
 
-  .scanner-foot{
-    display:flex;align-items:center;justify-content:space-between;
-    margin-top:16px;font-size:.8rem;color:var(--muted);
-    flex-wrap:wrap;gap:8px;
-  }
+  .scanner-foot{display:flex;align-items:center;justify-content:space-between;margin-top:16px;font-size:.85rem;color:var(--muted)}
   .format-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
   .format-pills span{
-    font-size:.7rem;padding:5px 10px;border:1px solid var(--border);
+    font-size:.72rem;padding:5px 10px;border:1px solid var(--border);
     border-radius:99px;color:var(--text-2);letter-spacing:.04em;
   }
 
+  /* Result panel */
+  .result-panel{margin-top:14px;min-height:24px}
+  .result-empty{color:var(--muted);font-size:.85rem;text-align:center;padding:6px 0}
+  .result-error{color:#ff8f8f;font-size:.85rem;text-align:center;padding:6px 0}
+  .result-card{
+    background:#161616;border:1px solid var(--border-hi);border-radius:12px;
+    padding:14px 16px;display:flex;flex-direction:column;gap:10px;
+    animation:popIn .25s ease;
+  }
+  @keyframes popIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+  .result-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .result-format{
+    font-size:.7rem;padding:4px 10px;border-radius:99px;background:var(--accent-soft);
+    color:var(--accent);font-weight:700;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;
+  }
+  .result-value{font-size:1rem;font-weight:600;word-break:break-all;color:var(--text)}
+  .result-actions{display:flex;gap:8px}
+  .result-actions button{
+    font-size:.8rem;padding:8px 12px;border-radius:8px;border:1px solid var(--border);color:var(--text-2);transition:.2s;
+  }
+  .result-actions button:hover{border-color:var(--accent);color:var(--accent)}
+
   /* ============ SECTION HEADINGS ============ */
-  .section-head{text-align:center;max-width:760px;margin:0 auto clamp(36px,5vw,56px);padding:0 8px}
+  .section-head{text-align:center;max-width:760px;margin:0 auto 56px}
   .section-head .eyebrow{margin-bottom:16px}
-  .section-head p{color:var(--text-2);font-size:clamp(.96rem,1.2vw,1.05rem);margin-top:12px}
+  .section-head p{color:var(--text-2);font-size:1.05rem;margin-top:12px}
 
   /* ============ FEATURES ============ */
   .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
@@ -342,7 +301,7 @@
   .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:28px}
   .feature-card{
     background:var(--card);border:1px solid var(--border);
-    border-radius:var(--radius);padding:clamp(20px,2.5vw,28px);
+    border-radius:var(--radius);padding:28px;
     transition:transform .3s,border-color .3s,box-shadow .3s;
     position:relative;overflow:hidden;
   }
@@ -354,18 +313,18 @@
   .feature-icon{
     width:52px;height:52px;border-radius:14px;
     background:var(--accent-soft);
-    display:grid;place-items:center;color:var(--accent);margin-bottom:16px;
-    transition:.3s;flex-shrink:0;
+    display:grid;place-items:center;color:var(--accent);margin-bottom:18px;
+    transition:.3s;
   }
   .feature-card:hover .feature-icon{background:var(--accent);color:#1A1A1A;transform:scale(1.08) rotate(-4deg)}
   .feature-icon svg{width:24px;height:24px}
   .feature-card h3{color:var(--accent);margin-bottom:8px}
-  .feature-card p{color:var(--text-2);font-size:.94rem}
+  .feature-card p{color:var(--text-2);font-size:.96rem}
 
   /* ============ SUPPORTED BARCODES ============ */
   .format-card{
     background:var(--card);border:1px solid var(--border);
-    border-radius:14px;padding:20px 16px;text-align:center;
+    border-radius:14px;padding:22px 20px;text-align:center;
     transition:.3s;position:relative;overflow:hidden;
   }
   .format-card::before{
@@ -377,20 +336,19 @@
   .format-card:hover::before{background:linear-gradient(135deg,rgba(194,247,17,0.08),transparent 70%)}
   .format-glyph{
     height:56px;margin:0 auto 14px;display:flex;align-items:flex-end;justify-content:center;gap:2px;
-    padding:8px;border-radius:8px;background:#fff;max-width:80px;
+    padding:8px;border-radius:8px;background:#fff;
   }
   .format-glyph i{display:block;background:#111;width:3px;border-radius:1px}
   .format-glyph.matrix{background:#fff;display:grid;grid-template-columns:repeat(7,1fr);gap:2px;padding:8px;width:56px;height:56px}
   .format-glyph.matrix span{background:#111;border-radius:1px}
-  .format-card h3{font-size:1rem;margin-bottom:4px;color:var(--accent)}
-  .format-card p{color:var(--muted);font-size:.78rem;margin:0}
+  .format-card h3{font-size:1.05rem;margin-bottom:4px;color:var(--accent)}
+  .format-card p{color:var(--muted);font-size:.82rem;margin:0}
 
   /* ============ HOW IT WORKS ============ */
   .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;position:relative}
   .step{
     background:var(--card);border:1px solid var(--border);
-    border-radius:var(--radius);padding:clamp(20px,2.5vw,28px);position:relative;transition:.3s;
-    margin-top:18px;
+    border-radius:var(--radius);padding:28px;position:relative;transition:.3s;
   }
   .step:hover{border-color:var(--border-hi);transform:translateY(-4px)}
   .step-num{
@@ -404,43 +362,36 @@
     color:var(--accent);display:grid;place-items:center;margin:12px 0 16px;
   }
   .step-icon svg{width:22px;height:22px}
-  .step h3{color:var(--accent);margin-bottom:6px;font-size:1.1rem}
-  .step p{color:var(--text-2);font-size:.92rem}
+  .step h3{color:var(--accent);margin-bottom:6px;font-size:1.15rem}
+  .step p{color:var(--text-2);font-size:.94rem}
 
   /* ============ BENEFITS ============ */
   .benefits-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
   .benefit{
     background:var(--card);border:1px solid var(--border);
-    padding:22px;border-radius:14px;display:flex;flex-direction:column;gap:10px;
+    padding:24px;border-radius:14px;display:flex;flex-direction:column;gap:10px;
     transition:.3s;
   }
   .benefit:hover{border-color:var(--border-hi);transform:translateY(-3px)}
   .benefit .check{
     width:34px;height:34px;border-radius:10px;background:var(--accent);
-    color:#1A1A1A;display:grid;place-items:center;font-weight:800;flex-shrink:0;
+    color:#1A1A1A;display:grid;place-items:center;font-weight:800;
   }
-  .benefit h3{font-size:1.02rem;color:var(--accent);margin:0}
-  .benefit p{font-size:.88rem;color:var(--text-2);margin:0;line-height:1.6}
+  .benefit h3{font-size:1.05rem;color:var(--accent);margin:0}
+  .benefit p{font-size:.9rem;color:var(--text-2);margin:0;line-height:1.6}
 
   /* ============ CONTENT SECTIONS ============ */
   .content-block{max-width:960px;margin:0 auto}
-  .content-block h2{margin-bottom:14px;margin-top:8px}
-  .content-block h3{margin:28px 0 8px;font-size:clamp(1.05rem,1.6vw,1.25rem)}
+  .content-block h2{margin-bottom:14px}
+  .content-block h3{margin:32px 0 8px}
   .content-block p{color:var(--text);margin-bottom:14px;line-height:1.85}
   .content-block ul{margin:14px 0 20px 20px;color:var(--text-2)}
   .content-block ul li{margin-bottom:10px;line-height:1.7}
   .content-block ul li::marker{color:var(--accent)}
-  .content-block > div{margin-bottom:32px}
 
-  /* Tables — responsive with horizontal scroll */
-  .table-wrap{
-    width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;
-    border-radius:12px;margin:20px 0;
-    border:1px solid var(--border);background:var(--card);
-  }
-  table{width:100%;border-collapse:collapse;min-width:520px}
-  th,td{padding:14px 18px;text-align:left;border-bottom:1px solid var(--border);font-size:.94rem}
-  th{background:#1c1c1c;color:var(--accent);font-weight:700;text-transform:uppercase;font-size:.76rem;letter-spacing:.06em;white-space:nowrap}
+  table{width:100%;border-collapse:collapse;margin:20px 0;background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+  th,td{padding:14px 18px;text-align:left;border-bottom:1px solid var(--border);font-size:.95rem}
+  th{background:#1c1c1c;color:var(--accent);font-weight:700;text-transform:uppercase;font-size:.78rem;letter-spacing:.06em}
   td{color:var(--text-2)}
   tr:last-child td{border-bottom:none}
   tr:hover td{background:#262626;color:var(--text)}
@@ -453,24 +404,24 @@
   }
   .faq[open]{border-color:var(--border-hi)}
   .faq summary{
-    padding:18px 22px;list-style:none;cursor:pointer;
-    display:flex;justify-content:space-between;align-items:center;gap:14px;
-    font-weight:600;color:var(--text);font-size:clamp(.95rem,1.2vw,1.02rem);
+    padding:20px 24px;list-style:none;cursor:pointer;
+    display:flex;justify-content:space-between;align-items:center;gap:16px;
+    font-weight:600;color:var(--text);font-size:1.02rem;
   }
   .faq summary::-webkit-details-marker{display:none}
   .faq summary::after{
     content:"+";font-size:1.6rem;color:var(--accent);font-weight:400;line-height:1;
-    transition:transform .3s;flex-shrink:0;
+    transition:transform .3s;
   }
   .faq[open] summary::after{content:"−"}
   .faq[open] summary{color:var(--accent)}
-  .faq-body{padding:0 22px 20px;color:var(--text-2);line-height:1.8;font-size:.96rem}
+  .faq-body{padding:0 24px 22px;color:var(--text-2);line-height:1.8;font-size:.98rem}
 
   /* ============ CTA STRIP ============ */
   .cta-strip{
     background:linear-gradient(135deg,#232323,#1c1c1c);
     border:1px solid var(--border-hi);border-radius:24px;
-    padding:clamp(32px,5vw,56px) clamp(24px,4vw,48px);text-align:center;max-width:1080px;margin:0 auto;
+    padding:56px 48px;text-align:center;max-width:1080px;margin:0 auto;
     position:relative;overflow:hidden;
   }
   .cta-strip::before{
@@ -482,17 +433,13 @@
   .cta-strip .actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 
   /* ============ FOOTER ============ */
-  footer{border-top:1px solid var(--border);padding:56px 0 28px;background:#141414}
-  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px;margin-bottom:36px}
-  .foot-col h4{color:var(--accent);font-size:.86rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;font-weight:700}
-  .foot-col a{display:block;color:var(--text-2);font-size:.92rem;margin-bottom:10px;transition:.2s}
+  footer{border-top:1px solid var(--border);padding:64px 0 32px;background:#141414}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+  .foot-col h4{color:var(--accent);font-size:.9rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px;font-weight:700}
+  .foot-col a{display:block;color:var(--text-2);font-size:.94rem;margin-bottom:10px;transition:.2s}
   .foot-col a:hover{color:var(--accent);transform:translateX(4px)}
-  .foot-col p{color:var(--text-2);font-size:.92rem;line-height:1.7}
-  .foot-bottom{
-    border-top:1px solid var(--border);padding-top:22px;
-    display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
-    color:var(--muted);font-size:.84rem;
-  }
+  .foot-col p{color:var(--text-2);font-size:.94rem;line-height:1.7}
+  .foot-bottom{border-top:1px solid var(--border);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:var(--muted);font-size:.86rem}
 
   /* ============ REVEAL ANIMATIONS ============ */
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
@@ -501,86 +448,48 @@
   .reveal-left.in{opacity:1;transform:translateX(0)}
   @media (prefers-reduced-motion:reduce){
     .reveal,.reveal-left{opacity:1;transform:none;transition:none}
-    .scanner{animation:none}
     .scanner-window::before{animation:none}
   }
 
-  /* ============ RESPONSIVE BREAKPOINTS ============ */
-
-  /* Large tablet / small desktop */
-  @media (max-width:1100px){
-    .nav-menu a{padding:8px 10px;font-size:.86rem}
-  }
-
-  /* Tablet — hide desktop nav, show hamburger */
-  @media (max-width:960px){
-    .nav-menu,
-    .cta-btn.desktop{display:none}
-    .burger{display:flex}
-    .hero-grid{grid-template-columns:1fr;gap:40px}
-    .grid-3{grid-template-columns:repeat(2,1fr);gap:18px}
-    .grid-4{grid-template-columns:repeat(3,1fr);gap:14px}
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:1024px){
+    .hero-grid{grid-template-columns:1fr;gap:48px}
+    .grid-3{grid-template-columns:repeat(2,1fr)}
+    .grid-4{grid-template-columns:repeat(3,1fr)}
     .steps{grid-template-columns:repeat(2,1fr);gap:32px 20px}
     .benefits-grid{grid-template-columns:repeat(2,1fr)}
     .foot-grid{grid-template-columns:1fr 1fr;gap:32px}
-    .hero .lead{max-width:100%}
   }
-
-  /* Small tablet */
   @media (max-width:768px){
-    section{padding:56px 0}
-    .container{padding:0 20px}
-    .nav-inner{padding:12px 20px}
-    .grid-2{grid-template-columns:1fr;gap:20px}
-    .cta-strip{padding:36px 20px}
-    .hero-stats{gap:20px}
-    .hero-stats .stat{flex:1;min-width:100px}
-    .scanner-tab{font-size:.78rem;padding:10px 8px}
-    .scanner-tab svg{width:14px;height:14px}
+    section{padding:64px 0}
+    .cta-btn.desktop{display:none}
+    .nav-links{
+      display:none;
+      position:absolute;top:100%;left:0;right:0;
+      flex-direction:column;align-items:stretch;gap:2px;
+      background:#1e1e1e;border:1px solid var(--border);border-top:none;
+      border-radius:0 0 14px 14px;padding:10px;
+      box-shadow:var(--shadow);
+    }
+    .nav-links.open{display:flex}
+    .nav-links a{padding:12px 14px;border-radius:8px}
+    .burger{display:flex}
+    .grid-2{grid-template-columns:1fr}
+    .cta-strip{padding:40px 24px}
+    .hero-stats{gap:24px}
   }
-
-  /* Mobile */
-  @media (max-width:600px){
-    .grid-3{grid-template-columns:1fr;gap:14px}
-    .grid-4{grid-template-columns:repeat(2,1fr);gap:12px}
-    .benefits-grid{grid-template-columns:1fr;gap:12px}
+  @media (max-width:520px){
+    .grid-3,.grid-4{grid-template-columns:1fr 1fr}
     .steps{grid-template-columns:1fr;gap:36px 0}
-    .foot-grid{grid-template-columns:1fr;gap:28px;text-align:left}
-    .foot-bottom{flex-direction:column;text-align:center;align-items:center}
-    .hero-actions{flex-direction:column;align-items:stretch;width:100%}
-    .hero-actions .cta-btn,.hero-actions .cta-ghost{justify-content:center;width:100%}
-    .cta-strip .actions{flex-direction:column;align-items:stretch}
-    .cta-strip .actions a{justify-content:center;width:100%}
-    .scanner-foot{font-size:.72rem}
-    .scanner-foot span:last-child{width:100%}
-    h1{font-size:2rem}
-    h2{font-size:1.55rem}
-    .container{padding:0 16px}
-    .nav-inner{padding:12px 16px;gap:10px}
-    .logo{font-size:1.05rem}
-    .logo-mark{width:32px;height:32px}
-    .scanner{padding:14px}
-    .scanner-tabs{padding:4px;gap:4px}
-    .scanner-tab{font-size:.72rem;padding:9px 6px;gap:4px}
-    .scanner-tab svg{width:13px;height:13px}
-    .format-pills span{font-size:.65rem;padding:4px 8px}
-    .eyebrow{font-size:.72rem;padding:5px 12px}
-  }
-
-  /* Very small mobile */
-  @media (max-width:380px){
-    .grid-4{grid-template-columns:1fr}
-    h1{font-size:1.75rem}
-    h2{font-size:1.4rem}
-    .hero-stats{gap:14px}
-    .hero-stats .stat strong{font-size:1.3rem}
-    .container{padding:0 14px}
-    .scanner-tab span{display:none}
-  }
-
-  /* Prevent horizontal overflow on any device */
-  @media (max-width:1440px){
-    body,html{max-width:100vw;overflow-x:hidden}
+    .benefits-grid{grid-template-columns:1fr}
+    .foot-grid{grid-template-columns:1fr}
+    h1{font-size:2.1rem}
+    h2{font-size:1.65rem}
+    .hero-actions{flex-direction:column;align-items:stretch}
+    .hero-actions .cta-btn,.hero-actions .cta-ghost{justify-content:center}
+    .container{padding:0 18px}
+    .scanner{padding:16px}
+    th,td{padding:10px 12px;font-size:.85rem}
   }
 </style>
 </head>
@@ -598,7 +507,7 @@
       qrcodescannar
     </a>
     <nav aria-label="Primary">
-      <ul class="nav-menu">
+      <ul class="nav-links" id="navLinks">
         <li><a href="/qr-code-generator">QR Generator</a></li>
         <li><a href="/image-qr-code-scanner">Image Scanner</a></li>
         <li><a href="/barcode-scanner" class="active">Barcode Scanner</a></li>
@@ -611,23 +520,7 @@
     <a href="#scanner" class="cta-btn desktop">Launch Scanner
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
     </a>
-    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span></button>
-  </div>
-
-  <!-- Mobile Navigation -->
-  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
-    <ul>
-      <li><a href="/qr-code-generator">QR Generator</a></li>
-      <li><a href="/image-qr-code-scanner">Image Scanner</a></li>
-      <li><a href="/barcode-scanner">Barcode Scanner</a></li>
-      <li><a href="/wifi-qr-code-scanner">WiFi QR</a></li>
-      <li><a href="/blog">Blog</a></li>
-      <li><a href="/about-us">About</a></li>
-      <li><a href="/contact">Contact</a></li>
-      <li><a href="#scanner" class="cta-btn">Launch Scanner
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-      </a></li>
-    </ul>
+    <button class="burger" id="burgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span></button>
   </div>
 </header>
 
@@ -640,7 +533,7 @@
       <span class="eyebrow"><span class="dot"></span> Live Barcode Scanner Tool</span>
       <h1>Scan Any Barcode Instantly, Right In Your Browser.</h1>
       <p class="lead">
-        A blazing-fast <strong style="color:var(--accent)">online Barcode Scanner</strong> that reads product codes, shipping labels and 2D matrix codes from your camera, an uploaded image, or a simple drag &amp; drop — no installs, no accounts, no uploads to any server.
+        A blazing-fast <strong style="color:var(--accent)">online Barcode Scanner</strong> that reads product codes, shipping labels and 2D matrix codes from your camera or an uploaded image — no installs, no accounts, no uploads to any server.
       </p>
       <div class="hero-actions">
         <a href="#scanner-panel" class="cta-btn">
@@ -654,36 +547,50 @@
       <div class="hero-stats">
         <div class="stat"><strong>14+</strong><span>Formats supported</span></div>
         <div class="stat"><strong>100%</strong><span>Browser private</span></div>
-        <div class="stat"><strong>0.4s</strong><span>Avg. decode time</span></div>
+        <div class="stat"><strong>Live</strong><span>On-device decoding</span></div>
       </div>
     </div>
 
     <div class="reveal" id="scanner-panel">
-      <div class="scanner" role="region" aria-label="Live barcode scanner preview">
+      <div class="scanner" role="region" aria-label="Live barcode scanner">
         <div class="scanner-tabs" role="tablist">
-          <button class="scanner-tab active" role="tab" aria-selected="true">
+          <button class="scanner-tab active" role="tab" aria-selected="true" data-mode="camera">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg>
-            <span>Camera Scan</span>
+            Camera Scan
           </button>
-          <button class="scanner-tab" role="tab" aria-selected="false">
+          <button class="scanner-tab" role="tab" aria-selected="false" data-mode="upload">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
-            <span>Upload Image</span>
+            Upload Image
           </button>
-          <button class="scanner-tab" role="tab" aria-selected="false">
+          <button class="scanner-tab" role="tab" aria-selected="false" data-mode="drop">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="2" stroke-dasharray="3 3"/><path d="M12 8v8M8 12h8"/></svg>
-            <span>Drag &amp; Drop</span>
+            Drag &amp; Drop
           </button>
         </div>
-        <div class="scanner-window" aria-hidden="true">
+
+        <div class="scanner-window" id="scannerWindow">
           <span class="corner tl"></span><span class="corner tr"></span>
           <span class="corner bl"></span><span class="corner br"></span>
-          <div class="barcode-mock" id="barcodeMock"></div>
+          <video id="scannerVideo" playsinline muted></video>
+          <img id="previewImage" alt="Uploaded barcode preview" />
+          <div class="scanner-placeholder" id="scannerPlaceholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
+            <p>Click or drop an image here</p>
+            <span>JPG, PNG or WebP</span>
+          </div>
+          <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp" hidden />
         </div>
+
         <div class="format-pills" aria-label="Supported formats preview">
           <span>EAN-13</span><span>UPC-A</span><span>Code 128</span><span>QR</span><span>Data Matrix</span><span>PDF417</span><span>Aztec</span>
         </div>
+
+        <div class="result-panel" id="resultPanel" aria-live="polite">
+          <p class="result-empty">Starting camera…</p>
+        </div>
+
         <div class="scanner-foot">
-          <span>● Live preview • JPG, PNG, WebP, HEIC, PDF</span>
+          <span id="scannerStatus">● Live preview</span>
           <span style="color:var(--accent);font-weight:600">Decoding on-device</span>
         </div>
       </div>
@@ -704,7 +611,7 @@
       <article class="feature-card reveal">
         <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
         <h3>Instant Detection</h3>
-        <p>Our optimised decoder locks onto a barcode in under half a second, even from angled or partially cropped images.</p>
+        <p>Our decoder locks onto a barcode in a fraction of a second, even from angled or partially cropped images.</p>
       </article>
       <article class="feature-card reveal">
         <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/></svg></div>
@@ -729,7 +636,7 @@
       <article class="feature-card reveal">
         <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></div>
         <h3>Instant Results</h3>
-        <p>Decoded values appear beside a copy button, a QR quick-share, and a formatted lookup link when applicable.</p>
+        <p>Decoded values appear beside a copy button so you can paste the value anywhere in one tap.</p>
       </article>
       <article class="feature-card reveal">
         <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
@@ -737,14 +644,14 @@
         <p>Optimised for iOS Safari and Android Chrome with a real touch-friendly camera viewfinder — no jank, no cropping.</p>
       </article>
       <article class="feature-card reveal">
-        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="10"/></svg></div>
-        <h3>Works Offline</h3>
-        <p>After the first visit the scanner is cached as a PWA, so you can scan on a plane, in a warehouse or on the shop floor.</p>
-      </article>
-      <article class="feature-card reveal">
         <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 7L9 18l-5-5"/></svg></div>
         <h3>Free Forever</h3>
         <p>No hidden credits, no scan limits, no "pro" upsell. This tool is genuinely free for personal and commercial use.</p>
+      </article>
+      <article class="feature-card reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="10"/></svg></div>
+        <h3>No Sign-Up</h3>
+        <p>Open the page and start scanning immediately — no account, no email required.</p>
       </article>
     </div>
   </div>
@@ -875,8 +782,8 @@
       <div class="step reveal">
         <div class="step-num">4</div>
         <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg></div>
-        <h3>Copy or Share</h3>
-        <p>One-tap copy, download as text/CSV, or open the value directly in your browser or a product lookup.</p>
+        <h3>Copy the Result</h3>
+        <p>One-tap copy lets you paste the decoded value directly wherever you need it.</p>
       </div>
     </div>
   </div>
@@ -888,7 +795,7 @@
     <div class="section-head reveal">
       <span class="eyebrow"><span class="dot"></span> Benefits</span>
       <h2>Why Choose Our Barcode Scanner</h2>
-      <p>Eight reasons professionals and everyday shoppers keep this tab pinned.</p>
+      <p>Reasons professionals and everyday shoppers keep this tab pinned.</p>
     </div>
 
     <div class="benefits-grid">
@@ -897,7 +804,7 @@
       <div class="benefit reveal"><div class="check">✓</div><h3>Secure</h3><p>Served over HTTPS with a strict Content-Security-Policy.</p></div>
       <div class="benefit reveal"><div class="check">✓</div><h3>Free</h3><p>No credit card, no trial, no scan quotas — ever.</p></div>
       <div class="benefit reveal"><div class="check">✓</div><h3>Browser-Based</h3><p>Runs anywhere a modern browser runs. Nothing to install.</p></div>
-      <div class="benefit reveal"><div class="check">✓</div><h3>AI-Optimised</h3><p>Neural post-processing recovers blurred and low-contrast codes.</p></div>
+      <div class="benefit reveal"><div class="check">✓</div><h3>Multi-Format</h3><p>One decoder covers 1D retail codes and 2D matrix codes alike.</p></div>
       <div class="benefit reveal"><div class="check">✓</div><h3>No Login</h3><p>Zero friction. Land on the page and start scanning.</p></div>
       <div class="benefit reveal"><div class="check">✓</div><h3>Unlimited Scans</h3><p>Scan one code or ten thousand — the number never changes.</p></div>
     </div>
@@ -918,7 +825,7 @@
       <h2>1. What Is a Barcode Scanner?</h2>
       <p>A barcode scanner is a piece of software or hardware that translates the visual pattern of bars and spaces (or dots, in 2D codes) into the numeric or alphanumeric value they encode. Our <strong>online barcode scanner</strong> replaces the traditional laser gun with a camera and a decoder that runs directly in your browser — the same math, none of the hardware.</p>
       <h3>Hardware vs. software scanners</h3>
-      <p>Handheld scanners are purpose-built and blindingly fast, but they lock you into one form factor. A modern <strong>browser barcode scanner</strong> like ours turns any phone, tablet or laptop into an equally capable device, with the added benefits of instant updates and format coverage that traditional scanners rarely match.</p>
+      <p>Handheld scanners are purpose-built and fast, but they lock you into one form factor. A modern <strong>browser barcode scanner</strong> like ours turns any phone, tablet or laptop into an equally capable device, with instant updates and broad format coverage.</p>
       <ul>
         <li><strong>Universal reach</strong> — any device with a camera becomes a scanner.</li>
         <li><strong>Always current</strong> — new symbologies are shipped as browser updates.</li>
@@ -930,18 +837,16 @@
       <h2>2. How Our Barcode Reader Actually Works</h2>
       <p>Under the hood the decoder is a five-stage pipeline. Understanding the stages helps explain why our <strong>barcode reader online</strong> can decode codes that phone camera apps often give up on.</p>
       <h3>The decoding pipeline</h3>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Stage</th><th>What Happens</th><th>Why It Matters</th></tr></thead>
-          <tbody>
-            <tr><td>1. Capture</td><td>A single frame is grabbed from the camera or uploaded image.</td><td>Higher resolution = tolerance for smaller codes.</td></tr>
-            <tr><td>2. Pre-process</td><td>Grayscale, contrast normalisation, and adaptive thresholding.</td><td>Rescues low-light, glare and shadow captures.</td></tr>
-            <tr><td>3. Locate</td><td>Edge and finder-pattern detection identify candidate regions.</td><td>Allows off-centre and rotated codes to be found.</td></tr>
-            <tr><td>4. Decode</td><td>The symbology-specific algorithm reads the payload.</td><td>Same core used in industrial scanners.</td></tr>
-            <tr><td>5. Verify</td><td>Checksum validation confirms the result is correct.</td><td>Zero false-positives for supported formats.</td></tr>
-          </tbody>
-        </table>
-      </div>
+      <table>
+        <thead><tr><th>Stage</th><th>What Happens</th><th>Why It Matters</th></tr></thead>
+        <tbody>
+          <tr><td>1. Capture</td><td>A single frame is grabbed from the camera or uploaded image.</td><td>Higher resolution = tolerance for smaller codes.</td></tr>
+          <tr><td>2. Pre-process</td><td>Grayscale and contrast normalisation.</td><td>Rescues low-light, glare and shadow captures.</td></tr>
+          <tr><td>3. Locate</td><td>Edge and finder-pattern detection identify candidate regions.</td><td>Allows off-centre and rotated codes to be found.</td></tr>
+          <tr><td>4. Decode</td><td>The symbology-specific algorithm reads the payload.</td><td>Same core used in industrial scanners.</td></tr>
+          <tr><td>5. Verify</td><td>Checksum validation confirms the result is correct.</td><td>Reduces false-positives for supported formats.</td></tr>
+        </tbody>
+      </table>
     </div>
 
     <div class="reveal">
@@ -950,7 +855,7 @@
       <h3>Linear (1D) barcodes</h3>
       <p>These are the vertical-stripe codes you see on nearly every retail product. They typically store 8–20 digits and require a scan line to cross every bar. EAN-13, UPC-A and Code 128 are the most common examples.</p>
       <h3>Matrix (2D) barcodes</h3>
-      <p>QR, Data Matrix, PDF417 and Aztec pack data in two dimensions, storing hundreds to thousands of characters and remaining readable even if partially damaged thanks to Reed–Solomon error correction.</p>
+      <p>QR, Data Matrix, PDF417 and Aztec pack data in two dimensions, storing hundreds to thousands of characters and remaining readable even if partially damaged thanks to error correction.</p>
       <ul>
         <li><strong>1D best for</strong> — retail SKUs, shelf labels, ID tags.</li>
         <li><strong>2D best for</strong> — URLs, boarding passes, vCards, small-part marking.</li>
@@ -959,44 +864,41 @@
 
     <div class="reveal">
       <h2>4. Using the Camera Scanner</h2>
-      <p>The camera mode of our <strong>barcode scanner camera</strong> flow is designed to feel exactly like a native app. On mobile it selects the rear camera automatically, applies continuous autofocus, and streams frames to the decoder at up to 60 fps.</p>
+      <p>The camera mode of our <strong>barcode scanner camera</strong> flow is designed to feel exactly like a native app. On mobile it prefers the rear camera automatically and streams frames continuously to the decoder.</p>
       <h3>Tips for reliable camera scans</h3>
       <ul>
-        <li>Hold the code roughly parallel to the sensor — up to 45° tilt is tolerated.</li>
+        <li>Hold the code roughly parallel to the sensor.</li>
         <li>Fill about a third of the frame with the barcode for the fastest lock.</li>
         <li>Avoid direct glare — a slight angle beats a reflective one.</li>
-        <li>On desktops, an external webcam of at least 1080p makes a real difference.</li>
+        <li>Make sure the page is opened over HTTPS (or localhost) — browsers block camera access on plain http.</li>
       </ul>
     </div>
 
     <div class="reveal">
       <h2>5. Scanning a Barcode From an Image</h2>
-      <p>Photos and screenshots are treated as first-class citizens. Use our <strong>barcode scanner from image</strong> mode when you have a saved photo, a PDF invoice, a shipping-label PNG or a screenshot of an on-screen barcode.</p>
+      <p>Photos and screenshots are treated as first-class citizens. Use our <strong>barcode scanner from image</strong> mode when you have a saved photo or a screenshot of an on-screen barcode.</p>
       <h3>Supported input types</h3>
       <ul>
-        <li>JPEG, PNG, WebP and HEIC still images.</li>
-        <li>PDF documents — each page is decoded individually.</li>
-        <li>Pasted screenshots directly from your clipboard.</li>
-        <li>Multi-code images — every barcode in the frame is returned.</li>
+        <li>JPEG, PNG and WebP still images.</li>
+        <li>Photos taken straight from your camera roll.</li>
+        <li>Screenshots of on-screen barcodes.</li>
       </ul>
     </div>
 
     <div class="reveal">
       <h2>6. Real-World Use Cases</h2>
       <p>A <strong>free barcode scanner</strong> is genuinely useful across dozens of everyday and professional workflows. A handful of the most common:</p>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>User</th><th>Scenario</th><th>Format</th></tr></thead>
-          <tbody>
-            <tr><td>Shoppers</td><td>Comparing prices on a product's <strong>scan product barcode</strong> in-store</td><td>EAN-13 / UPC-A</td></tr>
-            <tr><td>Warehouses</td><td>Reading inbound cartons and pallets</td><td>ITF / Code 128</td></tr>
-            <tr><td>Pharmacies</td><td>Verifying medication lot and expiry</td><td>Data Matrix (GS1)</td></tr>
-            <tr><td>Airlines</td><td>Decoding boarding passes for check-in</td><td>PDF417 / Aztec</td></tr>
-            <tr><td>Libraries</td><td>Cataloguing new arrivals</td><td>Codabar / Code 39</td></tr>
-            <tr><td>Marketers</td><td>Testing campaign QRs before launch</td><td>QR Code</td></tr>
-          </tbody>
-        </table>
-      </div>
+      <table>
+        <thead><tr><th>User</th><th>Scenario</th><th>Format</th></tr></thead>
+        <tbody>
+          <tr><td>Shoppers</td><td>Comparing prices on a product's <strong>scan product barcode</strong> in-store</td><td>EAN-13 / UPC-A</td></tr>
+          <tr><td>Warehouses</td><td>Reading inbound cartons and pallets</td><td>ITF / Code 128</td></tr>
+          <tr><td>Pharmacies</td><td>Verifying medication lot and expiry</td><td>Data Matrix (GS1)</td></tr>
+          <tr><td>Airlines</td><td>Decoding boarding passes for check-in</td><td>PDF417 / Aztec</td></tr>
+          <tr><td>Libraries</td><td>Cataloguing new arrivals</td><td>Codabar / Code 39</td></tr>
+          <tr><td>Marketers</td><td>Testing campaign QRs before launch</td><td>QR Code</td></tr>
+        </tbody>
+      </table>
     </div>
 
     <div class="reveal">
@@ -1007,45 +909,26 @@
         <li><strong>No storage</strong> — decoded values live only in the browser tab you scanned in.</li>
         <li><strong>No tracking</strong> — we do not use analytics that fingerprint your device.</li>
       </ul>
-      <h3>Safe for confidential barcodes</h3>
-      <p>Because nothing is uploaded, this tool is safe for internal inventory, financial documents, pharmaceutical serialisation and any other sensitive workflow.</p>
     </div>
 
     <div class="reveal">
       <h2>8. Accessibility &amp; Compatibility</h2>
-      <p>We treat accessibility as a feature, not an afterthought. The <strong>barcode scanner tool</strong> is fully keyboard-navigable, screen-reader friendly and colour-contrast compliant.</p>
-      <h3>WCAG-aligned by default</h3>
+      <p>We treat accessibility as a feature, not an afterthought. The <strong>barcode scanner tool</strong> is keyboard-navigable, screen-reader friendly and colour-contrast conscious.</p>
+      <h3>Good practice by default</h3>
       <ul>
-        <li>All interactive elements expose <code>aria-label</code>s and visible focus rings.</li>
-        <li>Colour combinations meet WCAG 2.1 AA contrast ratios.</li>
-        <li>Motion and animations respect <code>prefers-reduced-motion</code>.</li>
-        <li>Camera preview is captioned live for screen readers.</li>
+        <li>Interactive elements expose <code>aria-label</code>s and visible focus rings.</li>
+        <li>Colour combinations aim for strong contrast.</li>
+        <li>Motion respects <code>prefers-reduced-motion</code>.</li>
       </ul>
     </div>
 
     <div class="reveal">
-      <h2>9. Performance &amp; Battery</h2>
-      <p>Fast pages don't just feel better — they save your battery. Our <strong>image barcode reader</strong> is engineered for Core Web Vitals from the ground up.</p>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Metric</th><th>Target</th><th>Typical Result</th></tr></thead>
-          <tbody>
-            <tr><td>LCP</td><td>&lt; 2.5 s</td><td>~ 1.2 s</td></tr>
-            <tr><td>INP</td><td>&lt; 200 ms</td><td>~ 60 ms</td></tr>
-            <tr><td>CLS</td><td>&lt; 0.1</td><td>0.00</td></tr>
-            <tr><td>Lighthouse Perf.</td><td>&gt; 90</td><td>97 – 99</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="reveal">
-      <h2>10. Tips to Improve Recognition Accuracy</h2>
+      <h2>9. Tips to Improve Recognition Accuracy</h2>
       <p>Even a great <strong>barcode decoder</strong> can be tripped up by a poor capture. If a scan won't lock, try these fixes in order:</p>
       <ul>
         <li>Move closer — the barcode should fill roughly a third of the frame.</li>
         <li>Steady the phone against a surface to remove motion blur.</li>
-        <li>Turn on the LED torch if the label is in shadow.</li>
+        <li>Turn on more light if the label is in shadow.</li>
         <li>Wipe the camera lens — smudges silently ruin small 2D codes.</li>
         <li>For creased or curved labels, flatten first and try again.</li>
       </ul>
@@ -1077,7 +960,7 @@
     <div class="section-head reveal">
       <span class="eyebrow"><span class="dot"></span> Frequently asked</span>
       <h2>Barcode Scanner FAQ</h2>
-      <p>Twelve of the most common questions we get about our <strong>barcode scan online free</strong> tool.</p>
+      <p>The most common questions we get about our <strong>barcode scan online free</strong> tool.</p>
     </div>
 
     <div class="faq-grid">
@@ -1086,12 +969,10 @@
       <details class="faq reveal"><summary>Which barcode formats are supported?</summary><div class="faq-body">We decode all major formats including EAN-13, EAN-8, UPC-A, UPC-E, Code 39, Code 93, Code 128, Codabar, ITF, Data Matrix, PDF417, Aztec and QR Code.</div></details>
       <details class="faq reveal"><summary>Is my data private when I scan a barcode?</summary><div class="faq-body">Yes. Detection runs entirely on your device inside the browser. No image or camera frame ever leaves your machine, so scans stay completely private.</div></details>
       <details class="faq reveal"><summary>Do I need to install an app?</summary><div class="faq-body">No installation is required. The scanner runs directly in modern browsers on desktop, tablet and mobile — Chrome, Safari, Firefox, Edge and Brave all supported.</div></details>
-      <details class="faq reveal"><summary>Can I scan a product barcode from a photo?</summary><div class="faq-body">Absolutely. Drop or upload any image (JPG, PNG, WebP, HEIC or PDF page) and the decoder will locate the barcode automatically, even if it isn't centred.</div></details>
-      <details class="faq reveal"><summary>Does the tool work offline?</summary><div class="faq-body">After the first load the page is cached as a Progressive Web App, so scanning continues to work with no network connection.</div></details>
+      <details class="faq reveal"><summary>Can I scan a product barcode from a photo?</summary><div class="faq-body">Absolutely. Drop or upload any image (JPG, PNG or WebP) and the decoder will locate the barcode automatically, even if it isn't centred.</div></details>
+      <details class="faq reveal"><summary>Why isn't my camera turning on?</summary><div class="faq-body">Browsers only allow camera access on secure origins (HTTPS or localhost) and require you to tap "Allow" on the permission prompt. If you denied access by mistake, check the camera icon in your address bar and allow it, then reload the page.</div></details>
       <details class="faq reveal"><summary>Which devices are supported?</summary><div class="faq-body">Any device with a modern browser: iPhone, iPad, Android phones, Chromebooks, Windows, macOS and Linux desktops.</div></details>
       <details class="faq reveal"><summary>Do I need to create an account?</summary><div class="faq-body">No login, no sign-up, no email required. Open the page and start scanning — that's the entire onboarding.</div></details>
-      <details class="faq reveal"><summary>How accurate is the barcode recognition?</summary><div class="faq-body">Our AI-assisted decoder handles blur, glare, angles up to 45°, and partially damaged barcodes with very high accuracy on clean images and typical retail codes.</div></details>
-      <details class="faq reveal"><summary>Can I scan multiple barcodes at once?</summary><div class="faq-body">Yes. When an image contains several barcodes the scanner will decode each one and list every result separately for copy or export.</div></details>
       <details class="faq reveal"><summary>Is this tool safe for commercial use?</summary><div class="faq-body">Yes. Because nothing is uploaded to a server, it is safe to scan internal inventory, invoices, shipping labels or any other confidential barcode data.</div></details>
     </div>
   </div>
@@ -1142,69 +1023,9 @@
 </footer>
 
 <script>
-  /* ===== Barcode mock bars ===== */
-  (function(){
-    var host = document.getElementById('barcodeMock');
-    if(!host) return;
-    var widths = [3,1,2,3,1,1,2,3,1,2,1,3,2,1,3,1,2,1,3,2,1,3,1,2,3,1,2,1,3,2,1,3];
-    var heights = [100,80,100,60,90,100,70,100,80,100,60,90,100,70,80,100,90,60,100,80,100,90,60,100,80,100,70,90,100,60,80,100];
-    var frag = document.createDocumentFragment();
-    widths.forEach(function(w,i){
-      var bar = document.createElement('i');
-      bar.style.width = w+'px';
-      bar.style.height = heights[i]+'%';
-      frag.appendChild(bar);
-    });
-    host.appendChild(frag);
-  })();
+(function(){
 
-  /* ===== Mobile Menu Toggle ===== */
-  (function(){
-    var burger = document.getElementById('burger');
-    var mobileNav = document.getElementById('mobileNav');
-    if(!burger || !mobileNav) return;
-
-    function closeMenu(){
-      burger.classList.remove('open');
-      mobileNav.classList.remove('active');
-      burger.setAttribute('aria-expanded','false');
-      mobileNav.setAttribute('aria-hidden','true');
-      document.body.style.overflow='';
-    }
-    function openMenu(){
-      burger.classList.add('open');
-      mobileNav.classList.add('active');
-      burger.setAttribute('aria-expanded','true');
-      mobileNav.setAttribute('aria-hidden','false');
-      document.body.style.overflow='hidden';
-    }
-
-    burger.addEventListener('click', function(){
-      if(mobileNav.classList.contains('active')){ closeMenu(); }
-      else{ openMenu(); }
-    });
-
-    // Close on link click
-    mobileNav.querySelectorAll('a').forEach(function(a){
-      a.addEventListener('click', closeMenu);
-    });
-
-    // Close on resize to desktop
-    window.addEventListener('resize', function(){
-      if(window.innerWidth > 960 && mobileNav.classList.contains('active')){
-        closeMenu();
-      }
-    });
-
-    // Close on Escape
-    document.addEventListener('keydown', function(e){
-      if(e.key === 'Escape' && mobileNav.classList.contains('active')){
-        closeMenu();
-      }
-    });
-  })();
-
-  /* ===== Reveal on scroll ===== */
+  /* ---------- Reveal on scroll ---------- */
   function revealAll(){
     document.querySelectorAll('.reveal, .reveal-left').forEach(function(el){ el.classList.add('in'); });
   }
@@ -1216,18 +1037,222 @@
   }
   setTimeout(revealAll, 400);
 
-  /* ===== Scanner tabs (visual only) ===== */
-  document.querySelectorAll('.scanner-tab').forEach(function(tab){
+  /* ---------- Mobile nav toggle ---------- */
+  var burger = document.getElementById('burgerBtn');
+  var navLinks = document.getElementById('navLinks');
+  if (burger && navLinks) {
+    burger.addEventListener('click', function(){
+      var isOpen = navLinks.classList.toggle('open');
+      burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    navLinks.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        navLinks.classList.remove('open');
+        burger.setAttribute('aria-expanded','false');
+      });
+    });
+  }
+
+  /* ---------- Year ---------- */
+  var yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  /* ---------- Barcode / QR scanner ---------- */
+  var tabs = document.querySelectorAll('.scanner-tab');
+  var windowEl = document.getElementById('scannerWindow');
+  var videoEl = document.getElementById('scannerVideo');
+  var imgEl = document.getElementById('previewImage');
+  var placeholderEl = document.getElementById('scannerPlaceholder');
+  var fileInput = document.getElementById('fileInput');
+  var resultPanel = document.getElementById('resultPanel');
+  var statusEl = document.getElementById('scannerStatus');
+
+  var reader = null;
+  var currentMode = 'camera';
+  var lastObjectUrl = null;
+
+  function escapeHtml(str){
+    var d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+  }
+  function setStatus(text){ if(statusEl) statusEl.textContent = text; }
+  function setResultEmpty(msg){ resultPanel.innerHTML = '<p class="result-empty">'+escapeHtml(msg)+'</p>'; }
+  function setResultError(msg){ resultPanel.innerHTML = '<p class="result-error">'+escapeHtml(msg)+'</p>'; }
+  function setResultValue(text, format){
+    resultPanel.innerHTML =
+      '<div class="result-card">'+
+        '<div class="result-row">'+
+          '<span class="result-format">'+escapeHtml(String(format||'code'))+'</span>'+
+          '<div class="result-actions"><button type="button" id="copyResultBtn">Copy</button></div>'+
+        '</div>'+
+        '<div class="result-value">'+escapeHtml(text)+'</div>'+
+      '</div>';
+    var copyBtn = document.getElementById('copyResultBtn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', function(){
+        var btn = this;
+        var done = function(){ btn.textContent = 'Copied!'; setTimeout(function(){ btn.textContent = 'Copy'; }, 1500); };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done).catch(done);
+        } else {
+          var ta = document.createElement('textarea');
+          ta.value = text; document.body.appendChild(ta); ta.select();
+          try { document.execCommand('copy'); } catch(e){}
+          document.body.removeChild(ta);
+          done();
+        }
+      });
+    }
+  }
+
+  function stopCamera(){
+    if (reader) { try { reader.reset(); } catch(e){} }
+    videoEl.classList.remove('active');
+    windowEl.classList.remove('scanning');
+    if (videoEl.srcObject) {
+      try { videoEl.srcObject.getTracks().forEach(function(t){ t.stop(); }); } catch(e){}
+      videoEl.srcObject = null;
+    }
+  }
+
+  function clearPreviewImage(){
+    imgEl.classList.remove('active');
+    if (lastObjectUrl) { URL.revokeObjectURL(lastObjectUrl); lastObjectUrl = null; }
+  }
+
+  function startCamera(){
+    if (typeof ZXing === 'undefined') {
+      setResultError('Scanner engine failed to load. Check your internet connection and reload the page.');
+      return;
+    }
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      setResultError('Your browser does not support camera access.');
+      return;
+    }
+    clearPreviewImage();
+    placeholderEl.style.display = 'none';
+    videoEl.classList.add('active');
+    windowEl.classList.add('scanning');
+    setStatus('● Live camera');
+    setResultEmpty('Point your camera at a barcode…');
+
+    if (!reader) reader = new ZXing.BrowserMultiFormatReader();
+
+    reader.decodeFromConstraints(
+      { video: { facingMode: { ideal: 'environment' } }, audio: false },
+      videoEl,
+      function(result, err){
+        if (result) {
+          var fmt = '';
+          try { fmt = String(result.getBarcodeFormat()); } catch(e){}
+          setResultValue(result.getText(), fmt.replace(/_/g,' '));
+        }
+        // NotFoundException fires continuously while no code is visible — ignore it.
+      }
+    ).catch(function(err){
+      videoEl.classList.remove('active');
+      windowEl.classList.remove('scanning');
+      placeholderEl.style.display = 'flex';
+      setStatus('● Camera unavailable');
+      var msg = 'Could not access the camera.';
+      if (err && err.name === 'NotAllowedError') msg = 'Camera permission was denied. Allow camera access in your browser settings and reload.';
+      else if (err && err.name === 'NotFoundError') msg = 'No camera was found on this device.';
+      else if (location.protocol !== 'https:' && location.hostname !== 'localhost') msg = 'Camera access needs HTTPS (or localhost). Open this page over https:// to use the camera.';
+      setResultError(msg);
+    });
+  }
+
+  function showUploadMode(){
+    stopCamera();
+    placeholderEl.style.display = 'flex';
+    setStatus('● Image mode');
+    setResultEmpty('Choose an image or drag one into this box.');
+  }
+
+  function decodeImageFile(file){
+    if (!file) return;
+    if (typeof ZXing === 'undefined') {
+      setResultError('Scanner engine failed to load. Check your internet connection and reload the page.');
+      return;
+    }
+    if (!/^image\//.test(file.type)) {
+      setResultError('Only image files (JPG, PNG, WebP) are supported here.');
+      return;
+    }
+    clearPreviewImage();
+    var url = URL.createObjectURL(file);
+    lastObjectUrl = url;
+    imgEl.src = url;
+    imgEl.classList.add('active');
+    placeholderEl.style.display = 'none';
+    setResultEmpty('Decoding…');
+
+    if (!reader) reader = new ZXing.BrowserMultiFormatReader();
+
+    reader.decodeFromImageUrl(url).then(function(result){
+      var fmt = '';
+      try { fmt = String(result.getBarcodeFormat()); } catch(e){}
+      setResultValue(result.getText(), fmt.replace(/_/g,' '));
+    }).catch(function(err){
+      setResultError('No barcode could be found in this image. Try a clearer, closer photo.');
+    });
+  }
+
+  tabs.forEach(function(tab){
     tab.addEventListener('click', function(){
-      document.querySelectorAll('.scanner-tab').forEach(function(t){ t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+      tabs.forEach(function(t){ t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
       tab.classList.add('active');
       tab.setAttribute('aria-selected','true');
+
+      var mode = tab.getAttribute('data-mode');
+      currentMode = mode;
+
+      if (mode === 'camera') {
+        startCamera();
+      } else {
+        showUploadMode();
+        if (mode === 'upload') fileInput.click();
+      }
     });
   });
 
-  /* ===== Year ===== */
-  var yearEl = document.getElementById('year');
-  if(yearEl) yearEl.textContent = new Date().getFullYear();
+  placeholderEl.addEventListener('click', function(){ fileInput.click(); });
+  fileInput.addEventListener('change', function(e){ decodeImageFile(e.target.files && e.target.files[0]); });
+
+  ['dragover','dragenter'].forEach(function(evt){
+    windowEl.addEventListener(evt, function(e){ e.preventDefault(); windowEl.classList.add('drag-over'); });
+  });
+  ['dragleave'].forEach(function(evt){
+    windowEl.addEventListener(evt, function(e){ e.preventDefault(); windowEl.classList.remove('drag-over'); });
+  });
+  windowEl.addEventListener('drop', function(e){
+    e.preventDefault();
+    windowEl.classList.remove('drag-over');
+    var file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (!file) return;
+    if (currentMode === 'camera') {
+      tabs.forEach(function(t){ t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+      var dropTab = document.querySelector('.scanner-tab[data-mode="drop"]');
+      if (dropTab) { dropTab.classList.add('active'); dropTab.setAttribute('aria-selected','true'); }
+      stopCamera();
+      placeholderEl.style.display = 'flex';
+      setStatus('● Image mode');
+      currentMode = 'drop';
+    }
+    decodeImageFile(file);
+  });
+
+  window.addEventListener('beforeunload', stopCamera);
+  document.addEventListener('visibilitychange', function(){
+    if (document.hidden && currentMode === 'camera') stopCamera();
+    else if (!document.hidden && currentMode === 'camera' && !videoEl.classList.contains('active')) startCamera();
+  });
+
+  /* Start in camera mode by default */
+  startCamera();
+
+})();
 </script>
 
 </body>
