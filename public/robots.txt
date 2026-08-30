@@ -23,4 +23,5 @@ Allow: /about-us
 Allow: /contact
 Allow: /privacy-policy
 Allow: /terms-of-service
+Allow: /ads.txt
 Allow: /assets/

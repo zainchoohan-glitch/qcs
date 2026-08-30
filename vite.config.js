@@ -8,7 +8,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 /**
  * Vite skips plain <script src="..."> (no type="module"), so dist/ had no JS.
  * Rollup emits main.bundle.js; this copies all assets/js/*.js into dist after build.
+ * Also copies root static files (ads.txt) so Netlify serves them at /ads.txt.
  */
+const rootStaticFiles = ['ads.txt'];
+
 function copyAssetsJsPlugin() {
   let outDir = 'dist';
   return {
@@ -24,6 +27,17 @@ function copyAssetsJsPlugin() {
       for (const file of files) {
         if (file.endsWith('.js') && file !== 'main.js') {
           await fs.promises.copyFile(path.join(srcDir, file), path.join(destDir, file));
+        }
+      }
+
+      const distRoot = path.join(__dirname, outDir);
+      await fs.promises.mkdir(distRoot, { recursive: true });
+      for (const file of rootStaticFiles) {
+        const fromRoot = path.join(__dirname, file);
+        const fromPublic = path.join(__dirname, 'public', file);
+        const src = fs.existsSync(fromRoot) ? fromRoot : fromPublic;
+        if (fs.existsSync(src)) {
+          await fs.promises.copyFile(src, path.join(distRoot, file));
         }
       }
     },
@@ -53,12 +67,13 @@ const input = Object.fromEntries(
 
 function permalinkToHtml(pathname) {
   // Only handle clean permalinks like `/qr-code-generator` (no extension).
+  // Files with extensions (ads.txt, robots.txt, sitemap.xml) are served as-is.
   if (!pathname || pathname === '/') return null;
 
   const clean = pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
   if (!clean.startsWith('/')) return null;
 
-  // Ignore requests with dot extensions (assets, files, etc).
+  // Ignore requests with dot extensions (assets, ads.txt, robots.txt, etc).
   const lastSegment = clean.slice(1).split('/').pop() || '';
   if (lastSegment.includes('.')) return null;
 

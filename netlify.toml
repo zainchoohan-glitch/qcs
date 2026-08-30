@@ -67,6 +67,12 @@
     Content-Type = "text/plain; charset=UTF-8"
 
 [[headers]]
+  for = "/ads.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=UTF-8"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
   for = "/BingSiteAuth.xml"
   [headers.values]
     Content-Type = "application/xml; charset=UTF-8"
