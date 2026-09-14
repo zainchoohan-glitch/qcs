@@ -553,6 +553,143 @@ a:hover {
   color: var(--text-secondary);
 }
 
+.blog-card h3 a {
+  color: inherit;
+}
+
+.blog-card h3 a:hover {
+  color: var(--primary-color);
+}
+
+.blog-card .read-more {
+  display: inline-block;
+  margin-top: 1rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.article-wrap {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.article-cover {
+  width: 100%;
+  height: auto;
+  max-height: 360px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 1.5rem 0 2rem;
+  border: 1px solid var(--border-color);
+}
+
+.article-body p,
+.article-body li {
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.article-body h2 {
+  margin-top: 2.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.article-body h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.article-body ol,
+.article-body ul {
+  padding-left: 1.4rem;
+  margin: 0.75rem 0 1.25rem;
+}
+
+.article-body li {
+  margin-bottom: 0.45rem;
+}
+
+.article-body a {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.article-table-wrap {
+  overflow-x: auto;
+  margin: 1.25rem 0 1.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+}
+
+.article-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 520px;
+}
+
+.article-table th,
+.article-table td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.95rem;
+}
+
+.article-table th {
+  background: var(--bg-secondary);
+  color: var(--primary-color);
+}
+
+.article-table tr:last-child td {
+  border-bottom: none;
+}
+
+.article-cta {
+  margin: 2.5rem 0 1rem;
+  padding: 1.35rem 1.5rem;
+  background: rgba(194, 247, 17, 0.1);
+  border-left: 4px solid var(--primary-color);
+  border-radius: 10px;
+}
+
+.article-faq {
+  margin-top: 2rem;
+}
+
+.article-faq details {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+.article-faq summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.article-faq details p {
+  margin-top: 0.65rem;
+}
+
+.article-related {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.breadcrumb {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.breadcrumb a {
+  color: var(--primary-color);
+}
+
 /* Contact Form */
 .contact-form {
   max-width: 600px;

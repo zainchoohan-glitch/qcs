@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Create a WiFi QR Code (Step-by-Step Guide)</title>
+  <meta name="description" content="Share guest WiFi without spelling the password. Follow this step-by-step guide to create a WiFi QR code for home, cafes, Airbnb, and offices.">
+  <link rel="canonical" href="https://qrcodescannar.com/blog/how-to-create-wifi-qr-code">
+  <meta name="author" content="Qr Code Scanner">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="How to Create a WiFi QR Code (Step-by-Step Guide)">
+  <meta property="og:description" content="Share guest WiFi without spelling the password. Follow this step-by-step guide to create a WiFi QR code for home, cafes, Airbnb, and offices.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://qrcodescannar.com/blog/how-to-create-wifi-qr-code">
+  <meta property="og:image" content="https://qrcodescannar.com/wifi-qr-code-generator.avif">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Create a WiFi QR Code (Step-by-Step Guide)">
+  <meta name="twitter:description" content="Share guest WiFi without spelling the password. Follow this step-by-step guide to create a WiFi QR code for home, cafes, Airbnb, and offices.">
+  <meta name="twitter:image" content="https://qrcodescannar.com/wifi-qr-code-generator.avif">
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is a WiFi QR code safe to leave on the table?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Anyone who can scan it can join that network. Use a guest network when you can, and reprint the code if you change the password."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will iPhone and Android both join from the same WiFi QR?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes on recent iOS and Android cameras. Older phones may need a QR app that understands WiFi payloads. Test one scan on each type of device you care about."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What if my network name has spaces or symbols?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Type the SSID and password exactly as they appear in your router settings, including capitals and spaces. A single wrong character makes the join fail even if the QR looks perfect."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="dark-mode">
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="/" class="logo">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 11h8V3H3v8zm2-6h4v4H5V5zm8-2v8h8V3h-8zm6 6h-4V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm13-2h-2v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+          QR Code Scanner
+        </a>
+        <ul class="nav-menu">
+          <li><a href="/qr-code-generator">QR Generator</a></li>
+          <li><a href="/image-qr-code-scanner">Image Scanner</a></li>
+          <li><a href="/barcode-scanner">Barcode Scanner</a></li>
+          <li><a href="/barcode-generator">Barcode Generator</a></li>
+          <li><a href="/wifi-qr-code-scanner">WiFi QR</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><button class="theme-toggle" id="theme-toggle"><span class="theme-icon">🌙</span></button></li>
+        </ul>
+        <div class="menu-toggle"><span></span><span></span><span></span></div>
+      </nav>
+    </div>
+  </header>
+
+  <main style="padding-top: 100px;">
+    <section class="section">
+      <article class="container article-wrap article-body">
+        <p class="breadcrumb"><a href="/blog">Blog</a> / WiFi QR</p>
+        <h1>How to Create a WiFi QR Code (Step-by-Step Guide)</h1>
+        <p class="blog-meta"><span>📅 September 9, 2026</span><span>⏱️ 6 min read</span></p>
+        <img class="article-cover" src="/wifi-qr-code-generator.avif" alt="Printed WiFi QR code card next to a laptop on a cafe table">
+
+        <p>Spelling a 16-character password across a noisy table is a bad welcome. A WiFi QR code turns that ritual into a scan: the phone reads the network name, security type, and password, then offers to join. Cafes, offices, and hosts use it because it is faster than a sticky note and easier than a verbal dictation.</p>
+        <p>You do not need design software. You need the same details you already typed into your router—plus a generator that builds a standard WiFi payload. Here is the whole path, start to print.</p>
+
+        <h2>What you should gather first</h2>
+        <ul>
+          <li><strong>Network name (SSID)</strong> — the exact name phones see in the WiFi list, including capitals and spaces.</li>
+          <li><strong>Password</strong> — copied from the router sticker or admin page, not from memory if you are unsure.</li>
+          <li><strong>Encryption type</strong> — usually WPA or WPA2 on home and small-business routers. WEP is rare and weak. Some guest portals are open (no password).</li>
+          <li><strong>Hidden network?</strong> — only tick this if the name does not appear in the public list.</li>
+        </ul>
+        <p>If you run a shop, create a <em>guest</em> network so visitors never land on printers and file shares. Put the QR on that guest SSID only.</p>
+
+        <h2>Step-by-step: make the code online</h2>
+        <ol>
+          <li><strong>Open a WiFi QR tool in your browser.</strong> A dedicated form is simpler than a generic URL generator because it already knows the WiFi field layout.</li>
+          <li><strong>Type the SSID.</strong> Match the router exactly. “Cafe Guest” and “Cafe-Guest” are different networks.</li>
+          <li><strong>Choose encryption.</strong> Pick WPA/WPA2 for almost every modern password-protected network. Choose WEP only if the router still uses it. Choose none/open if there is truly no password.</li>
+          <li><strong>Enter the password.</strong> Paste it. Do not add a space at the end. If the network is open, leave the password blank.</li>
+          <li><strong>Mark hidden only if needed.</strong> A hidden network still has a name; phones just do not advertise it. Wrong hidden flags confuse the join prompt.</li>
+          <li><strong>Generate the QR.</strong> You should see a square you can scan with your own phone before you print a hundred copies.</li>
+          <li><strong>Test on a device that is not already connected.</strong> Turn WiFi off and on, or use a second phone. Confirm it joins without typing.</li>
+          <li><strong>Download a PNG</strong> and print it at a decent size—about 4 cm square or larger on paper. Tiny codes on glossy menus fail under restaurant lighting.</li>
+        </ol>
+        <p>Need a plain website or text code for a poster as well? You can make that separately with the <a href="/qr-code-generator">QR code generator</a>. Keep WiFi and marketing codes visually distinct so guests scan the right square.</p>
+
+        <h2>Where to use WiFi QR codes</h2>
+        <ul>
+          <li><strong>Cafes and small restaurants</strong> — table tents, the counter, or the back of a paper receipt. One scan beats shouting the password over the espresso machine.</li>
+          <li><strong>Airbnb and guest rooms</strong> — a card in the welcome book, on the fridge, or beside the bed. Update it the day you rotate the password.</li>
+          <li><strong>Offices</strong> — reception, meeting rooms, and visitor badges. Guest WiFi only.</li>
+          <li><strong>Home</strong> — a framed card near the door for family who still ask every visit. Useful for smart TVs and consoles that accept a scan from the phone.</li>
+        </ul>
+        <p>Laminate cards that live near sinks. Reprint after any password change; an old QR is a silent lockout.</p>
+
+        <h2>FAQ</h2>
+        <div class="article-faq">
+          <details open>
+            <summary>Is a WiFi QR code safe to leave on the table?</summary>
+            <p>Anyone who can scan it can join that network. Use a guest network when you can, and reprint the code if you change the password.</p>
+          </details>
+          <details>
+            <summary>Will iPhone and Android both join from the same WiFi QR?</summary>
+            <p>Yes on recent iOS and Android cameras. Older phones may need a QR app that understands WiFi payloads. Test one scan on each type of device you care about.</p>
+          </details>
+          <details>
+            <summary>What if my network name has spaces or symbols?</summary>
+            <p>Type the SSID and password exactly as they appear in your router settings, including capitals and spaces. A single wrong character makes the join fail even if the QR looks perfect.</p>
+          </details>
+        </div>
+
+        <div class="article-cta">
+          <p>Ready to print a card? Create the code in your browser with the free <a href="https://qrcodescannar.com/wifi-qr-code-scanner">WiFi QR tool</a>. Enter the network name, password, and security type, generate, then test on your phone before you tape it to the wall.</p>
+        </div>
+
+        <p><a href="/blog">← All articles</a></p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>QR Code Scanner</h4>
+          <p>Fast, secure, and free QR code scanner and generator.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="/qr-code-generator">QR Generator</a></li>
+            <li><a href="/image-qr-code-scanner">Image Scanner</a></li>
+            <li><a href="/wifi-qr-code-scanner">WiFi QR</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Resources</h4>
+          <ul class="footer-links">
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/about-us">About Us</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="/privacy-policy">Privacy Policy</a></li>
+            <li><a href="/terms-of-service">Terms & Conditions</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 QR Code Scanner. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/main.bundle.js"></script>
+</body>
+</html>
