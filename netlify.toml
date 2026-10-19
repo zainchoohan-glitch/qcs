@@ -36,6 +36,31 @@
   status = 200
 
 [[redirects]]
+  from = "/blog/qr-code-scanner-not-working"
+  to = "/blog/qr-code-scanner-not-working.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/how-to-create-wifi-qr-code"
+  to = "/blog/how-to-create-wifi-qr-code.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/qr-code-vs-barcode"
+  to = "/blog/qr-code-vs-barcode.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/is-it-safe-to-scan-random-qr-codes"
+  to = "/blog/is-it-safe-to-scan-random-qr-codes.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/qr-code-marketing-ideas-for-small-business"
+  to = "/blog/qr-code-marketing-ideas-for-small-business.html"
+  status = 200
+
+[[redirects]]
   from = "/about-us"
   to = "/about-us.html"
   status = 200

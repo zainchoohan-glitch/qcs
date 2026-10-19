@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <!-- SEO Meta Tags -->
+  <title>Blog | QR Code Scanner & Generator</title>
+  <meta name="description" content="Expert tips, guides, and insights about QR code technology. Learn how to scan and generate QR codes securely.">
+  <link rel="canonical" href="https://qrcodescannar.com/blog">
+  <meta name="keywords" content="QR code blog, QR tips, QR guides, QR security, QR code tutorial">
+  <meta name="author" content="Qr Code Scanner">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Blog - QR Code Scanner">
+  <meta property="og:description" content="Tips, guides, and insights about QR code technology">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qrcodescannar.com/blog">
+  <meta property="og:image" content="https://qrcodescannar.com/public/qr-code-scan.avif">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blog - QR Code Scanner">
+  <meta name="twitter:description" content="Tips, guides, and insights about QR code technology">
+  <meta name="twitter:image" content="https://qrcodescannar.com/public/qr-code-scan.avif">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+  <style>
+    /* PROFESSIONAL BLOG STYLES - No Animations, No Hover Color Changes */
+    :root {
+        --blog-card-bg: var(--bg-secondary);
+        --blog-border: var(--border-color);
+    }
+
+    .blog-hero {
+        padding: 100px 0 60px;
+        text-align: center;
+        background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+        border-bottom: 1px solid var(--blog-border);
+    }
+
+    .blog-hero h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+    }
+
+    .blog-hero p {
+        font-size: 1.2rem;
+        color: var(--text-secondary);
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .blog-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 60px 20px;
+    }
+
+    .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 30px;
+    }
+
+    /* Professional Card - No Animations as requested */
+    .blog-card {
+        background: var(--blog-card-bg);
+        border: 1px solid var(--blog-border);
+        border-radius: 20px;
+        overflow: hidden;
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column;
+        transition: none !important; /* Disable all transitions */
+    }
+
+    .blog-card:hover {
+        transform: none !important;
+        box-shadow: none !important;
+        background: var(--blog-card-bg) !important;
+        border-color: var(--blog-border) !important;
+    }
+
+    .blog-image {
+        width: 100%;
+        height: 220px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-primary);
+        border-bottom: 1px solid var(--blog-border);
+    }
+
+    .blog-content {
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .blog-meta {
+        display: flex;
+        gap: 15px;
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        margin-bottom: 15px;
+    }
+
+    .blog-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+        color: var(--text-primary);
+        line-height: 1.3;
+        font-weight: 700;
+    }
+
+    .blog-card p {
+        font-size: 1rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+        margin-bottom: 25px;
+        flex-grow: 1;
+    }
+
+    .read-more {
+        font-weight: 600;
+        color: var(--primary-color);
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .read-more:hover {
+        text-decoration: underline;
+        color: var(--primary-color) !important;
+    }
+
+    /* Newsletter Section Styling */
+    .newsletter-box {
+        max-width: 800px;
+        margin: 80px auto;
+        padding: 50px;
+        background: linear-gradient(135deg, var(--primary-color), #a5d610);
+        border-radius: 24px;
+        text-align: center;
+        color: #000;
+    }
+
+    .newsletter-box h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        font-weight: 800;
+    }
+
+    .newsletter-form {
+        display: flex;
+        gap: 10px;
+        max-width: 500px;
+        margin: 2rem auto 0;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .newsletter-form input {
+        flex: 1;
+        min-width: 280px;
+        padding: 15px 20px;
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem;
+    }
+
+    .newsletter-form button {
+        background: #000;
+        color: var(--primary-color);
+        border: none;
+        padding: 15px 30px;
+        border-radius: 12px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+  </style>
+</head>
+<body class="dark-mode">
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="/" class="logo">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+            <path d="M3 11h8V3H3v8zm2-6h4v4H5V5zm8-2v8h8V3h-8zm6 6h-4V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm13-2h-2v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/>
+          </svg>
+          QR Code Scanner
+        </a>
+        
+        <ul class="nav-menu">
+          <li><a href="/qr-code-generator">QR Generator</a></li>
+          <li><a href="/image-qr-code-scanner">Image Scanner</a></li>
+          <li><a href="/barcode-scanner">Barcode Scanner</a></li>
+          <li><a href="/barcode-generator">Barcode Generator</a></li>
+          <li><a href="/wifi-qr-code-scanner">WiFi QR</a></li>
+          <li><a href="/blog" class="active">Blog</a></li>
+          <li>
+            <button class="theme-toggle" id="theme-toggle">
+              <span class="theme-icon">🌙</span>
+            </button>
+          </li>
+        </ul>
+        
+        <div class="menu-toggle">
+          <span></span><span></span><span></span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Blog Hero -->
+    <section class="blog-hero">
+      <div class="container">
+        <h1>Expert Blog</h1>
+        <p>Master the world of QR codes with our comprehensive guides, security tips, and creative tutorials.</p>
+      </div>
+    </section>
+
+    <!-- Blog Posts Grid -->
+    <section class="section">
+      <div class="blog-container">
+        <div class="blog-grid">
+          
+          <!-- Article 1: Guide -->
+          <a href="/blog/how-to-scan-qr-codes.html" class="blog-card">
+            <div class="blog-image">
+              <svg viewBox="0 0 100 100" width="80" height="80">
+                <rect fill="#c2f711" width="100" height="100" rx="15"/>
+                <path fill="#000" d="M20 20h15v15H20zm0 45h15v15H20zm45-45h15v15H65zM20 40h5v5h-5zm10 0h5v5h-5zm10 0h5v5h-5zm10 0h5v5h-5zm10 0h5v5h-5zm-30 10h5v5h-5zm20 0h5v5h-5zm10 0h5v5h-5zm-20 10h5v5h-5zm10 0h5v5h-5zm10 0h5v5h-5zm10 0h5v5h-5z"/>
+              </svg>
+            </div>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <span>📅 Oct 19, 2026</span>
+                <span>⏱️ 5 min read</span>
+              </div>
+              <h3>How to Scan QR Codes Online: A Simple Guide</h3>
+              <p>Stop downloading unnecessary apps. Learn how to scan QR codes instantly using your browser for a cleaner experience...</p>
+              <span class="read-more">Read Full Article →</span>
+            </div>
+          </a>
+
+          <!-- Article 2: WiFi -->
+          <a href="/blog/wifi-qr-guide.html" class="blog-card">
+            <div class="blog-image" style="background: linear-gradient(135deg, #ff3b30, #ff6b6b);">
+              <svg viewBox="0 0 100 100" width="80" height="80">
+                <path fill="white" d="M50 15L60 35H80L65 50L70 70L50 55L30 70L35 50L20 35H40L50 15Z"/>
+                <circle cx="50" cy="50" r="35" fill="none" stroke="white" stroke-width="3"/>
+              </svg>
+            </div>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <span>📅 Oct 19, 2026</span>
+                <span>⏱️ 4 min read</span>
+              </div>
+              <h3>Share Your WiFi Password Using QR Codes</h3>
+              <p>Tired of spelling out complex passwords? Create a WiFi QR code and let your guests connect instantly in one scan...</p>
+              <span class="read-more">Read Full Article →</span>
+            </div>
+          </a>
+
+          <!-- Article 3: Security -->
+          <a href="/blog/qr-security-guide.html" class="blog-card">
+            <div class="blog-image" style="background: linear-gradient(135deg, #007AFF, #5856D6);">
+              <svg viewBox="0 0 100 100" width="80" height="80">
+                <path fill="white" d="M10 30c0-5 5-10 10-10h60c5 0 10 5 10 10v40c0 5-5 10-10 10H20c-5 0-10-5-10-10V30z"/>
+                <circle cx="50" cy="50" r="20" fill="#007AFF"/>
+              </svg>
+            </div>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <span>📅 Oct 19, 2026</span>
+                <span>⏱️ 6 min read</span>
+              </div>
+              <h3>Are Online QR Code Scanners Safe?</h3>
+              <p>Privacy first! Learn how to identify secure scanners and protect yourself from malicious QR-phishing attacks...</p>
+              <span class="read-more">Read Full Article →</span>
+            </div>
+          </a>
+
+          <!-- Article 4: Business -->
+          <a href="/blog/qr-for-business.html" class="blog-card">
+            <div class="blog-image" style="background: linear-gradient(135deg, #FADB14, #F7B42C);">
+              <svg viewBox="0 0 100 100" width="80" height="80">
+                <rect fill="white" x="20" y="20" width="60" height="60" rx="5"/>
+                <path fill="#FADB14" d="M30 30h10v10H30zM60 30h10v10H60zM30 60h10v10H30z"/>
+              </svg>
+            </div>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <span>📅 Oct 19, 2026</span>
+                <span>⏱️ 8 min read</span>
+              </div>
+              <h3>10 Creative Ways to Grow Your Business with QR</h3>
+              <p>From digital menus to instant reviews, discover how QR codes can revolutionize your customer engagement...</p>
+              <span class="read-more">Read Full Article →</span>
+            </div>
+          </a>
+
+          <!-- Article 5: Static vs Dynamic -->
+          <a href="/blog/static-vs-dynamic-qr.html" class="blog-card">
+            <div class="blog-image" style="background: linear-gradient(135deg, #52C41A, #73D13D);">
+              <svg viewBox="0 0 100 100" width="80" height="80">
+                <circle cx="50" cy="50" r="40" fill="white" stroke="#52C41A" stroke-width="5"/>
+                <path fill="#52C41A" d="M40 40h20v20H40z"/>
+              </svg>
+            </div>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <span>📅 Oct 19, 2026</span>
+                <span>⏱️ 5 min read</span>
+              </div>
+              <h3>Static vs. Dynamic QR Codes: Which One?</h3>
+              <p>Confused between static and dynamic codes? We break down the differences to help you choose the right one...</p>
+              <span class="read-more">Read Full Article →</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="section">
+      <div class="newsletter-box">
+        <h2>Stay Updated</h2>
+        <p>Get the latest QR code tips, guides, and security news delivered straight to your inbox.</p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Enter your email" required>
+          <button type="submit">Subscribe Now</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>Qr Code Scanner</h4>
+          <p>Fast, secure, and free QR code scanner and generator.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="/qr-code-generator">QR Generator</a></li>
+            <li><a href="/image-qr-code-scanner">Image Scanner</a></li>
+            <li><a href="/wifi-qr-code-scanner">WiFi QR</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Resources</h4>
+          <ul class="footer-links">
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/about-us">About Us</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="/privacy-policy">Privacy Policy</a></li>
+            <li><a href="/terms-of-service">Terms & Conditions</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Qr Code Scanner. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/assets/js/main.bundle.js"></script>
+</body>
+</html>

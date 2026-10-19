@@ -56,6 +56,11 @@ const pages = [
   'contact.html',
   'privacy-policy.html',
   'terms-of-service.html',
+  'blog/qr-code-scanner-not-working.html',
+  'blog/how-to-create-wifi-qr-code.html',
+  'blog/qr-code-vs-barcode.html',
+  'blog/is-it-safe-to-scan-random-qr-codes.html',
+  'blog/qr-code-marketing-ideas-for-small-business.html',
 ];
 
 const input = Object.fromEntries(
