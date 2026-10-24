@@ -17,11 +17,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
 <link rel="manifest" href="/favicon/site.webmanifest" />
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-
-<link rel="stylesheet" href="/assets/css/style.css" />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 
 <style>
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -31,6 +27,22 @@
   button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
   :focus-visible{outline:2px solid #C2F711;outline-offset:3px;border-radius:4px}
   :root{--bg:#1A1A1A;--card:#232323;--border:rgba(255,255,255,0.08);--border-hi:rgba(194,247,17,0.35);--text:#fff;--text-2:#D6D6D6;--muted:#8a8a8a;--accent:#C2F711;--accent-soft:rgba(194,247,17,0.12);--shadow:0 20px 60px rgba(0,0,0,0.45)}
+  .header{position:fixed;top:0;width:100%;background:var(--bg);border-bottom:1px solid var(--border);z-index:1000}
+  .nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 0}
+  .logo{font-size:1.5rem;font-weight:700;color:var(--accent);display:flex;align-items:center;gap:10px}
+  .logo svg{width:32px;height:32px}
+  .nav-menu{display:flex;list-style:none;gap:2rem;align-items:center;margin:0;padding:0}
+  .nav-menu a{color:var(--text);font-weight:500}
+  .nav-menu a:hover,.nav-menu a.active{color:var(--accent)}
+  .theme-toggle{background:var(--card);border:1px solid var(--border);padding:8px 12px;border-radius:20px;cursor:pointer}
+  .menu-toggle{display:none;flex-direction:column;gap:4px;cursor:pointer}
+  .menu-toggle span{display:block;width:25px;height:3px;background:var(--text)}
+  @media(max-width:768px){
+    .menu-toggle{display:flex}
+    .nav-menu{position:fixed;top:70px;left:-100%;width:100%;height:calc(100vh - 70px);background:var(--bg);flex-direction:column;justify-content:flex-start;padding:2rem;transition:left .3s;z-index:999}
+    .nav-menu.active{left:0}
+  }
+  section:not(.hero){content-visibility:auto;contain-intrinsic-size:auto 520px}
   h1,h2,h3{color:var(--accent);line-height:1.15;letter-spacing:-0.02em}
   h1{font-size:clamp(2.2rem,5vw,4rem);font-weight:800;margin-bottom:20px}
   h2{font-size:clamp(1.8rem,3.2vw,2.6rem);font-weight:700;margin-bottom:1rem}
@@ -315,10 +327,30 @@
 
 <div class="toast" id="toast"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/bwip-js@4.5.1/dist/bwip-js-min.js"></script>
 <script>
 (function(){
   'use strict';
+
+  const BWIP_SRC = 'https://cdn.jsdelivr.net/npm/bwip-js@4.5.1/dist/bwip-js-min.js';
+  let bwipLoad = null;
+  function loadBwip(){
+    if (window.bwipjs) return Promise.resolve();
+    if (bwipLoad) return bwipLoad;
+    bwipLoad = new Promise(function(resolve, reject){
+      const s = document.createElement('script');
+      s.src = BWIP_SRC;
+      s.async = true;
+      s.onload = resolve;
+      s.onerror = function(){ bwipLoad = null; reject(new Error('bwip')); };
+      document.head.appendChild(s);
+    });
+    return bwipLoad;
+  }
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(function(){ loadBwip(); }, { timeout: 2500 });
+  } else {
+    window.addEventListener('load', function(){ setTimeout(loadBwip, 400); });
+  }
 
   const GEN_FORMATS = [
     { bcid: 'ean13', label: 'EAN-13', sample: '5901234123457', hint: '12 or 13 digits. Checksum auto-added for 12-digit input.' },
@@ -416,6 +448,10 @@
 
   async function generateBarcode(){
     hideError();
+    try { await loadBwip(); } catch (_) {
+      showError('Generator library failed to load. Check your connection and refresh.');
+      return;
+    }
     if (!window.bwipjs || typeof bwipjs.toCanvas !== 'function') {
       showError('Generator library failed to load. Check your connection and refresh.');
       return;
@@ -500,6 +536,6 @@
 })();
 </script>
 
-<script src="/assets/js/main.bundle.js"></script>
+<script defer src="/assets/js/main.bundle.js"></script>
 </body>
 </html>

@@ -34,14 +34,9 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
   <link rel="manifest" href="/favicon/site.webmanifest" />
   
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Stylesheet -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preload" as="style" href="/assets/css/style.css">
   <link rel="stylesheet" href="/assets/css/style.css">
-  
-  <!-- QRCode.js Library -->
-  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 </head>
 <body class="dark-mode">
   <!-- Header -->
@@ -56,7 +51,6 @@
         </a>
         
         <ul class="nav-menu">
-          <ul class="nav-menu">
             <li><a href="/qr-code-generator">QR Generator</a></li>
             <li><a href="/image-qr-code-scanner">Image Scanner</a></li>
             <li><a href="/barcode-scanner">Barcode Scanner</a></li>
@@ -289,8 +283,8 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
-  <script src="/assets/js/main.bundle.js"></script>
-  <script src="/assets/js/wifi-qr.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script defer src="/assets/js/main.bundle.js"></script>
+  <script defer src="/assets/js/wifi-qr.js"></script>
 </body>
 </html>

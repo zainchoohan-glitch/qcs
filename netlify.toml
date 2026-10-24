@@ -107,6 +107,16 @@
     X-Content-Type-Options = "nosniff"
 
 [[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/favicon/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
   for = "/BingSiteAuth.xml"
   [headers.values]
     Content-Type = "application/xml; charset=UTF-8"

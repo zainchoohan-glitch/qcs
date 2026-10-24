@@ -85,6 +85,10 @@ function handleGenerateWiFiQR(event) {
   wifiString += ';';
   
   // Generate QR code
+  if (typeof QRCode === 'undefined') {
+    showAlert('QR library is still loading. Try again in a moment.', 'error');
+    return;
+  }
   generateWiFiQRCode(wifiString, size, ssid, encryption, hidden);
 }
 
