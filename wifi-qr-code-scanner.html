@@ -7,7 +7,7 @@
   
   <!-- SEO Meta Tags -->
   <title>Share WiFi with a QR Code | QR Code Scanner</title>
-  <meta name="description" content="Create a WiFi QR code guests can scan to join your network—no spelling out long passwords. Set SSID, WPA2/WPA3, and hidden networks. Free and browser-based.">
+  <meta name="description" content="Create a WiFi QR code guests can scan to join—no typing a long password. Set SSID and WPA2, then generate it free in your browser.">
   <link rel="canonical" href="https://qrcodescannar.com/wifi-qr-code-scanner">
   <meta name="keywords" content="WiFi QR code, WiFi QR generator, share WiFi, WiFi password QR, wireless QR code">
   <meta name="author" content="Qr Code Scanner">
@@ -34,9 +34,14 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
   <link rel="manifest" href="/favicon/site.webmanifest" />
   
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="preload" as="style" href="/assets/css/style.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
   <link rel="stylesheet" href="/assets/css/style.css">
+  
+  <!-- QRCode.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 </head>
 <body class="dark-mode">
   <!-- Header -->
@@ -51,6 +56,7 @@
         </a>
         
         <ul class="nav-menu">
+          <ul class="nav-menu">
             <li><a href="/qr-code-generator">QR Generator</a></li>
             <li><a href="/image-qr-code-scanner">Image Scanner</a></li>
             <li><a href="/barcode-scanner">Barcode Scanner</a></li>
@@ -175,7 +181,7 @@
 
           <!-- QR Code Output -->
           <div id="wifi-qr-output" class="qr-output hidden">
-            <h3 class="text-center">Your WiFi QR Code</h3>
+            <p class="text-center" style="font-size: 2rem; font-weight: 700; line-height: 1.2; margin-bottom: 1rem; color: inherit;">Your WiFi QR Code</p>
             <p class="text-center" style="color: var(--text-secondary);">
               Scan this QR code to connect to your WiFi network
             </p>
@@ -192,7 +198,7 @@
               </button>
             </div>
             <div id="wifi-info-display" style="margin-top: 1.5rem; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
-              <h4 style="margin-bottom: 0.5rem;">Network Information:</h4>
+              <p style="margin-bottom: 0.5rem; font-size: 1.5rem; font-weight: 700; line-height: 1.2; color: inherit;">Network Information:</p>
               <div id="wifi-details" style="color: var(--text-secondary);"></div>
             </div>
           </div>
@@ -204,17 +210,17 @@
           <div class="tools-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 2rem;">
             <div class="feature-item">
               <div class="feature-icon">📱</div>
-              <h4>iOS (iPhone/iPad)</h4>
+              <h3 style="font-size: 1.5rem;">iOS (iPhone/iPad)</h3>
               <p>Open Camera app, point at QR code, tap notification to join</p>
             </div>
             <div class="feature-item">
               <div class="feature-icon">🤖</div>
-              <h4>Android 10+</h4>
+              <h3 style="font-size: 1.5rem;">Android 10+</h3>
               <p>Open Camera or use QR scanner in Quick Settings, scan to connect</p>
             </div>
             <div class="feature-item">
               <div class="feature-icon">💻</div>
-              <h4>Print & Display</h4>
+              <h3 style="font-size: 1.5rem;">Print & Display</h3>
               <p>Print the QR code and place it where guests can easily scan it</p>
             </div>
           </div>
@@ -283,8 +289,8 @@
     </div>
   </footer>
 
-  <script defer src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-  <script defer src="/assets/js/main.bundle.js"></script>
-  <script defer src="/assets/js/wifi-qr.js"></script>
+  <!-- Scripts -->
+  <script src="/assets/js/main.bundle.js"></script>
+  <script src="/assets/js/wifi-qr.js"></script>
 </body>
 </html>

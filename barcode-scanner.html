@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <title>Barcode Scanner Online | QR Code Scanner</title>
-<meta name="description" content="Free online Barcode Scanner. Scan product barcodes from image or camera directly in your browser. Supports EAN, UPC, Code 128, QR, Data Matrix, PDF417 & more. Private, fast and unlimited." />
+<meta name="description" content="Scan EAN, UPC, Code 128, and QR from your camera or a photo. Private in-browser decode—start scanning now." />
 <meta name="keywords" content="barcode scanner, online barcode scanner, barcode reader, scan barcode online, free barcode scanner" />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <meta name="theme-color" content="#1A1A1A" />
@@ -17,7 +17,12 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
 <link rel="manifest" href="/favicon/site.webmanifest" />
 
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="/assets/css/style.css" />
 
 <style>
   html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -39,22 +44,6 @@
     --radius:16px;--radius-sm:10px;--shadow:0 20px 60px rgba(0,0,0,0.45);
     --danger:#ff5c5c;--success:#4ade80;
   }
-  .header{position:fixed;top:0;width:100%;background:var(--bg);border-bottom:1px solid var(--border);z-index:1000}
-  .nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 0}
-  .logo{font-size:1.5rem;font-weight:700;color:var(--accent);display:flex;align-items:center;gap:10px}
-  .logo svg{width:32px;height:32px}
-  .nav-menu{display:flex;list-style:none;gap:2rem;align-items:center;margin:0;padding:0}
-  .nav-menu a{color:var(--text);font-weight:500}
-  .nav-menu a:hover,.nav-menu a.active{color:var(--accent)}
-  .theme-toggle{background:var(--card);border:1px solid var(--border);padding:8px 12px;border-radius:20px;cursor:pointer}
-  .menu-toggle{display:none;flex-direction:column;gap:4px;cursor:pointer}
-  .menu-toggle span{display:block;width:25px;height:3px;background:var(--text)}
-  @media(max-width:768px){
-    .menu-toggle{display:flex}
-    .nav-menu{position:fixed;top:70px;left:-100%;width:100%;height:calc(100vh - 70px);background:var(--bg);flex-direction:column;justify-content:flex-start;padding:2rem;transition:left .3s;z-index:999}
-    .nav-menu.active{left:0}
-  }
-  section:not(.hero){content-visibility:auto;contain-intrinsic-size:auto 520px}
 
   h1,h2,h3,h4{color:var(--accent);line-height:1.15;letter-spacing:-0.02em}
   h1{font-size:clamp(2.4rem,5.2vw,4.5rem);font-weight:800}
@@ -149,7 +138,7 @@
     text-align:center;color:var(--muted);padding:20px;z-index:1;
   }
   .placeholder svg{width:56px;height:56px;color:var(--accent);opacity:.5;margin:0 auto 12px}
-  .placeholder h4{color:var(--text);font-size:1.05rem;margin-bottom:6px}
+  .placeholder .placeholder-title,.placeholder h4{color:var(--text);font-size:1.05rem;margin-bottom:6px;font-weight:700}
   .placeholder p{font-size:.88rem;color:var(--muted)}
 
   /* Corner markers */
@@ -527,7 +516,7 @@
         <!-- Scanner Window -->
         <div class="scanner-window" id="scannerWindow">
           <video id="videoEl" playsinline muted autoplay></video>
-          <img id="previewImg" alt="Uploaded barcode preview" width="480" height="360" decoding="async" />
+          <img id="previewImg" alt="Uploaded barcode preview" width="640" height="400" />
           <div class="scan-line" id="scanLine"></div>
 
           <span class="corner tl"></span><span class="corner tr"></span>
@@ -537,7 +526,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
               <rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="3"/>
             </svg>
-            <h4>Ready to scan</h4>
+            <p class="placeholder-title">Ready to scan</p>
             <p id="placeholderText">Click "Start Camera" or upload an image below</p>
           </div>
         </div>
@@ -917,30 +906,11 @@
 <!-- Toast -->
 <div class="toast" id="toast">Copied to clipboard!</div>
 
+<!-- ZXing decoder (scan) -->
+<script src="https://unpkg.com/@zxing/library@0.21.3/umd/index.min.js"></script>
 <script>
 (function(){
   'use strict';
-
-  const ZXING_SRC = 'https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3/umd/index.min.js';
-  let zxingLoad = null;
-  function loadZXing(){
-    if (window.ZXing && ZXing.BrowserMultiFormatReader) return Promise.resolve();
-    if (zxingLoad) return zxingLoad;
-    zxingLoad = new Promise(function(resolve, reject){
-      const s = document.createElement('script');
-      s.src = ZXING_SRC;
-      s.async = true;
-      s.onload = resolve;
-      s.onerror = function(){ zxingLoad = null; reject(new Error('zxing')); };
-      document.head.appendChild(s);
-    });
-    return zxingLoad;
-  }
-  if ('requestIdleCallback' in window) {
-    requestIdleCallback(function(){ loadZXing(); }, { timeout: 2500 });
-  } else {
-    window.addEventListener('load', function(){ setTimeout(loadZXing, 400); });
-  }
 
   const videoEl       = document.getElementById('videoEl');
   const previewImg    = document.getElementById('previewImg');
@@ -1148,7 +1118,6 @@
 
   async function startCamera(){
     hideResult();
-    try { await loadZXing(); } catch (_) {}
     if (!requireZXing()) return;
 
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
@@ -1234,7 +1203,6 @@
       showError('Please use an image file (JPG, PNG, WebP, GIF, BMP).');
       return;
     }
-    try { await loadZXing(); } catch (_) {}
     if (!requireZXing()) return;
 
     hideResult();
@@ -1384,6 +1352,7 @@
 })();
 </script>
 
-<script defer src="/assets/js/main.bundle.js"></script>
+<script src="/assets/js/main.bundle.js"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
