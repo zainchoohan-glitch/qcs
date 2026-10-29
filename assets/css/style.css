@@ -93,48 +93,48 @@ a:hover {
 }
 
 /* Header & Navigation */
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+  z-index: 1000;
+  transition: var(--transition);
+  backdrop-filter: blur(10px);
+}
+
 .nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1.5rem;
   padding: 1rem 0;
 }
 
 .logo {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--primary-color);
   display: flex;
   align-items: center;
   gap: 10px;
-  white-space: nowrap;
-  flex-shrink: 0;
 }
 
 .logo svg {
-  width: 28px;
-  height: 28px;
-  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
 }
 
 .nav-menu {
   display: flex;
   list-style: none;
-  gap: 1.25rem;
+  gap: 2rem;
   align-items: center;
-  flex-wrap: nowrap;
-}
-
-.nav-menu li {
-  flex-shrink: 0;
 }
 
 .nav-menu a {
   color: var(--text-primary);
   font-weight: 500;
-  font-size: 0.95rem;
-  white-space: nowrap;
   transition: var(--transition);
   position: relative;
 }
@@ -158,14 +158,6 @@ a:hover {
 .nav-menu a:hover {
   color: var(--primary-color);
 }
-
-/* Beech ki screens par thodi aur tangi */
-@media (min-width: 769px) and (max-width: 1200px) {
-  .logo { font-size: 1.1rem; }
-  .nav-menu { gap: 0.9rem; }
-  .nav-menu a { font-size: 0.85rem; }
-}
-
 /* Dark Mode Toggle */
 .theme-toggle {
   background: var(--bg-secondary);
@@ -1026,38 +1018,57 @@ html {
 .justify-center { justify-content: center; }
 .align-center { align-items: center; }
 .gap-1 { gap: 1rem; }
-.dropdown { position: relative; }
+/* 1. Dropdown Container */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* 2. The Button (Trigger) */
 .dropdown-toggle {
-  background: none; border: 0; padding: 0; font: inherit;
-  font-size: 0.95rem; font-weight: 500; color: var(--text-primary);
-  cursor: pointer; white-space: nowrap; display: inline-flex;
-  align-items: center; gap: 0.35rem; transition: var(--transition);
+  background: none;
+  border: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 15px;
 }
-.dropdown-toggle:hover, .dropdown:focus-within .dropdown-toggle { color: var(--primary-color); }
+
+/* 3. The Menu (Hidden by default) */
 .dropdown-menu {
-  list-style: none; margin: 12px 0 0; padding: 0.5rem;
-  position: absolute; top: 100%; right: 0; min-width: 170px;
-  background-color: var(--bg-secondary); border: 1px solid var(--border-color);
-  border-radius: 8px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-  opacity: 0; visibility: hidden; transform: translateY(-6px);
-  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
-  z-index: 1001;
+  display: none; /* Shuru mein hide rahega */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--bg-secondary, #1a1a1a); /* Aapki theme color */
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  z-index: 1000;
+  list-style: none;
+  padding: 10px 0;
+  margin: 0;
+  border-radius: 8px;
+  border: 1px solid var(--border-color, #333);
 }
-.dropdown-menu::before {
-  content: ''; position: absolute; top: -12px; left: 0; right: 0; height: 12px;
+
+/* 4. Menu Items */
+.dropdown-menu li a {
+  color: var(--text-primary, #fff);
+  padding: 10px 20px;
+  text-decoration: none;
+  display: block;
+  font-size: 0.9rem;
 }
-.dropdown:hover .dropdown-menu, .dropdown:focus-within .dropdown-menu {
-  opacity: 1; visibility: visible; transform: translateY(0);
+
+.dropdown-menu li a:hover {
+  background-color: var(--primary-color, #c2f711);
+  color: #000;
 }
-.dropdown-menu a {
-  display: block; padding: 0.55rem 1rem; border-radius: 6px; white-space: nowrap;
-}
-.dropdown-menu a:hover { background-color: var(--bg-primary); }
-@media (max-width: 768px) {
-  .dropdown-menu {
-    position: static; opacity: 1; visibility: visible;
-    transform: none; box-shadow: none; border: 0;
-    background: transparent; margin: 0.25rem 0 0; padding: 0 0 0 1rem;
-  }
-  .dropdown-menu::before { display: none; }
+
+/* 5. SHOW MENU ON HOVER (Sab se zaroori part) */
+.dropdown:hover .dropdown-menu {
+  display: block; /* Hover karne par menu dikhega */
 }
