@@ -93,48 +93,48 @@ a:hover {
 }
 
 /* Header & Navigation */
-.header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background-color: var(--bg-primary);
-  border-bottom: 1px solid var(--border-color);
-  z-index: 1000;
-  transition: var(--transition);
-  backdrop-filter: blur(10px);
-}
-
 .nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1.5rem;
   padding: 1rem 0;
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--primary-color);
   display: flex;
   align-items: center;
   gap: 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .logo svg {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
 }
 
 .nav-menu {
   display: flex;
   list-style: none;
-  gap: 2rem;
+  gap: 1.25rem;
   align-items: center;
+  flex-wrap: nowrap;
+}
+
+.nav-menu li {
+  flex-shrink: 0;
 }
 
 .nav-menu a {
   color: var(--text-primary);
   font-weight: 500;
+  font-size: 0.95rem;
+  white-space: nowrap;
   transition: var(--transition);
   position: relative;
 }
@@ -157,6 +157,13 @@ a:hover {
 
 .nav-menu a:hover {
   color: var(--primary-color);
+}
+
+/* Beech ki screens par thodi aur tangi */
+@media (min-width: 769px) and (max-width: 1200px) {
+  .logo { font-size: 1.1rem; }
+  .nav-menu { gap: 0.9rem; }
+  .nav-menu a { font-size: 0.85rem; }
 }
 
 /* Dark Mode Toggle */
