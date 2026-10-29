@@ -69,6 +69,35 @@
     ]
   }
   </script>
+  <!-- Entity Schema: Organization + WebSite -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://qrcodescannar.com/#organization",
+        "name": "QR Code Scanner",
+        "url": "https://qrcodescannar.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://qrcodescannar.com/favicon/apple-touch-icon.png",
+          "width": 180,
+          "height": 180
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://qrcodescannar.com/#website",
+        "url": "https://qrcodescannar.com/",
+        "name": "QR Code Scanner",
+        "description": "Scan QR codes with your camera or from images. Generate QR codes for URLs, WiFi, and more. 100% in your browser—fast, private, and free.",
+        "inLanguage": "en",
+        "publisher": { "@id": "https://qrcodescannar.com/#organization" }
+      }
+    ]
+  }
+  </script>
 </head>
 <body class="dark-mode">
   <!-- Header -->
