@@ -46,15 +46,6 @@
 
   <!-- Structured Data (JSON-LD) -->
   <script type="application/ld+json">
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7DR9XRY5XR"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-7DR9XRY5XR');
-</script>
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
@@ -78,49 +69,6 @@
     ]
   }
   </script>
-<!-- Entity Schema: Organization + WebSite + WebPage -->
-<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Organization",
-        "@id": "https://qrcodescannar.com/#organization",
-        "name": "QR Code Scanner",
-        "url": "https://qrcodescannar.com/",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://qrcodescannar.com/favicon/apple-touch-icon.png",
-          "width": 180,
-          "height": 180
-        },
-        "sameAs": [
-          "https://github.com/zainchoohan-glitch"
-        ]
-      },
-      {
-        "@type": "WebSite",
-        "@id": "https://qrcodescannar.com/#website",
-        "url": "https://qrcodescannar.com/",
-        "name": "QR Code Scanner",
-        "description": "Scan QR codes with your camera or from images. Generate QR codes for URLs, WiFi, and more. 100% in your browser—fast, private, and free.",
-        "inLanguage": "en",
-        "publisher": { "@id": "https://qrcodescannar.com/#organization" }
-      },
-      {
-        "@type": "WebPage",
-        "@id": "https://qrcodescannar.com/#webpage",
-        "url": "https://qrcodescannar.com/",
-        "name": "QR Scanner from Image & Camera | QR Code Scanner",
-        "isPartOf": { "@id": "https://qrcodescannar.com/#website" },
-        "about": { "@id": "https://qrcodescannar.com/#organization" },
-        "author": { "@id": "https://qrcodescannar.com/#organization" },
-        "datePublished": "2026-03-20",
-        "dateModified": "2026-10-29"
-      }
-    ]
-  }
-  </script>
 </head>
 <body class="dark-mode">
   <!-- Header -->
@@ -140,19 +88,7 @@
           <li><a href="/barcode-scanner">Barcode Scanner</a></li>
           <li><a href="/barcode-generator">Barcode Generator</a></li>
           <li><a href="/wifi-qr-code-scanner">WiFi QR</a></li>
-          
-          <!-- Resources Dropdown -->
-          <li class="dropdown">
-            <button class="dropdown-toggle" type="button">
-              Resources <span aria-hidden="true">▾</span>
-            </button>
-            <ul class="dropdown-menu">
-              <li><a href="/blog">Blog</a></li>
-              <li><a href="/about-us">About Us</a></li>
-              <li><a href="/contact">Contact Us</a></li>
-            </ul>
-          </li>
-        
+          <li><a href="/blog">Blog</a></li>
           <li>
             <button class="theme-toggle" id="theme-toggle">
               <span class="theme-icon">🌙</span>
@@ -428,7 +364,7 @@
       </div>
       
       <div class="footer-bottom">
-        <p>&copy; 2026 QR Code Scanner. All rights reserved.</p>
+        <p>&copy; 2026 QR Code Scanner. All rights reserved</p>
       </div>
     </div>
   </footer>
