@@ -69,6 +69,51 @@
     ]
   }
   </script>
+  
+  <!-- Entity Schema: Organization + WebSite + WebPage -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://qrcodescannar.com/#organization",
+        "name": "QR Code Scanner",
+        "url": "https://qrcodescannar.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://qrcodescannar.com/favicon/apple-touch-icon.png",
+          "width": 180,
+          "height": 180
+        },
+        "sameAs": [
+          "https://github.com/zainchoohan-glitch"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://qrcodescannar.com/#website",
+        "url": "https://qrcodescannar.com/",
+        "name": "QR Code Scanner",
+        "description": "Scan QR codes with your camera or from images. Generate QR codes for URLs, WiFi, and more. 100% in your browser—fast, private, and free.",
+        "inLanguage": "en",
+        "publisher": { "@id": "https://qrcodescannar.com/#organization" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://qrcodescannar.com/#webpage",
+        "url": "https://qrcodescannar.com/",
+        "name": "QR Scanner from Image & Camera | QR Code Scanner",
+        "isPartOf": { "@id": "https://qrcodescannar.com/#website" },
+        "about": { "@id": "https://qrcodescannar.com/#organization" },
+        "author": { "@id": "https://qrcodescannar.com/#organization" },
+        "datePublished": "2026-03-15",
+        "dateModified": "2026-10-30"
+      }
+    ]
+  }
+  </script>
+  
 </head>
 <body class="dark-mode">
   <!-- Header -->
