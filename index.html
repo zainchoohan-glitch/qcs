@@ -70,30 +70,50 @@
   }
   </script>
   
-  <!-- Entity Schema: Organization + WebSite + WebPage -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "QR Code Scanner",
-      "url": "https://qrcodescannar.com/",
-      "datePublished": "2026-10-19",
-      "dateModified": "2026-11-01",
-      "author": {
-        "@type": "Person",
-        "name": "Zain Chohan",
-        "url": "https://qrcodescannar.com/about-us"
-      },
-      "publisher": {
-        "@type": "Organization",
+  
+ <!-- Structured Data (JSON-LD) - Optimized for AI & Google -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://qrcodescannar.com/#app",
         "name": "QR Code Scanner",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://qrcodescannar.com/favicon/favicon.svg"
-        }
+        "description": "Scan QR codes with your camera or from images. Generate QR codes for URLs, WiFi, and more. 100% in your browser—fast, private, and free.",
+        "url": "https://qrcodescannar.com",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "QR Code Camera Scanner",
+          "Image QR Code Scanner",
+          "QR Code Generator",
+          "WiFi QR Code Generator",
+          "Scan History",
+          "100% Client-Side Processing"
+        ],
+        "author": { "@id": "https://qrcodescannar.com/#person" },
+        "datePublished": "2026-10-19",
+        "dateModified": "2026-11-02"
+      },
+      {
+        "@type": "Person",
+        "@id": "https://qrcodescannar.com/#person",
+        "name": "Zain Chohan",
+        "url": "https://qrcodescannar.com/about-us",
+        "jobTitle": "Web Developer",
+        "sameAs": [
+          "https://github.com/zainchoohan-glitch"
+        ]
       }
-    }
-    </script>
+    ]
+  }
+  </script>
   
 </head>
 <body class="dark-mode">
