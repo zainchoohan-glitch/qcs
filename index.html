@@ -44,44 +44,60 @@
   <!-- Stylesheet -->
   <link rel="stylesheet" href="/assets/css/style.css">
 
-  <!-- Structured Data (JSON-LD) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "QR Code Scanner",
-    "description": "Scan QR codes with your camera or from images. Generate QR codes for URLs, WiFi, and more. 100% in your browser—fast, private, and free.",
-    "url": "https://qrcodescannar.com",
-    "applicationCategory": "UtilitiesApplication",
-    "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "featureList": [
-      "QR Code Camera Scanner",
-      "Image QR Code Scanner",
-      "QR Code Generator",
-      "WiFi QR Code Generator",
-      "Scan History",
-      "100% Client-Side Processing"
-    ]
-  }
-  </script>
-  
-  
- <!-- Structured Data (JSON-LD) - Optimized for AI & Google -->
+
+ <!-- Structured Data (JSON-LD) - Organization, WebSite, Person, WebPage, WebApplication -->
 <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@graph": [
       {
+        "@type": "Organization",
+        "@id": "https://qrcodescannar.com/#organization",
+        "name": "QR Code Scanner",
+        "url": "https://qrcodescannar.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://qrcodescannar.com/favicon/apple-touch-icon.png",
+          "width": 180,
+          "height": 180
+        },
+        "sameAs": ["https://github.com/zainchoohan-glitch/qcs"]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://qrcodescannar.com/#website",
+        "url": "https://qrcodescannar.com/",
+        "name": "QR Code Scanner",
+        "description": "Scan QR codes with your camera or from images. Generate QR codes for URLs, WiFi, and more. 100% in your browser—fast, private, and free.",
+        "inLanguage": "en",
+        "publisher": { "@id": "https://qrcodescannar.com/#organization" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://qrcodescannar.com/#person",
+        "name": "Zain Chohan",
+        "url": "https://qrcodescannar.com/about-us",
+        "jobTitle": "Web Developer",
+        "sameAs": ["https://github.com/zainchoohan-glitch"]
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://qrcodescannar.com/#webpage",
+        "url": "https://qrcodescannar.com/",
+        "name": "QR Scanner from Image & Camera | QR Code Scanner",
+        "isPartOf": { "@id": "https://qrcodescannar.com/#website" },
+        "about": { "@id": "https://qrcodescannar.com/#organization" },
+        "author": { "@id": "https://qrcodescannar.com/#person" },
+        "mainEntity": { "@id": "https://qrcodescannar.com/#app" },
+        "datePublished": "2026-10-19",
+        "dateModified": "2026-11-02"
+      },
+      {
         "@type": "WebApplication",
         "@id": "https://qrcodescannar.com/#app",
         "name": "QR Code Scanner",
         "description": "Scan QR codes with your camera or from images. Generate QR codes for URLs, WiFi, and more. 100% in your browser—fast, private, and free.",
-        "url": "https://qrcodescannar.com",
+        "url": "https://qrcodescannar.com/",
         "applicationCategory": "UtilitiesApplication",
         "operatingSystem": "Any",
         "offers": {
@@ -98,19 +114,10 @@
           "100% Client-Side Processing"
         ],
         "author": { "@id": "https://qrcodescannar.com/#person" },
-        "datePublished": "2026-10-19",
+        "publisher": { "@id": "https://qrcodescannar.com/#organization" },
+        "datePublished": "2026-03-20",
         "dateModified": "2026-11-02"
-      },
-      {
-        "@type": "Person",
-        "@id": "https://qrcodescannar.com/#person",
-        "name": "Zain Chohan",
-        "url": "https://qrcodescannar.com/about-us",
-        "jobTitle": "Web Developer",
-        "sameAs": [
-          "https://github.com/zainchoohan-glitch"
-        ]
-      }
+    
     ]
   }
   </script>
